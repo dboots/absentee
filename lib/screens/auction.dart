@@ -1,4 +1,5 @@
 import 'package:absentee/models/auction/auction.dart';
+import 'package:absentee/screens/auctioneers/create-listing.dart';
 import 'package:absentee/services/auction.service.dart';
 import 'package:absentee/services/listing.service.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,10 @@ class _AuctionWidgetState extends State<AuctionWidget> {
                     Row(children: [
                       const Text('Listings'),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => CreateListingWidget()));
+                        },
                         child: const Icon(Icons.add),
                       )
                     ]),
@@ -58,13 +62,19 @@ class _AuctionWidgetState extends State<AuctionWidget> {
                         builder: (context, snapshot) {
                           print('stream finished ${snapshot.data}');
                           return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: snapshot.data?.map((e) {
-                                    return Column(children: [
-                                      Text(e.title),
-                                      e.locked != null
-                                          ? const Text('locked')
-                                          : const Text('')
-                                    ]);
+                                    return Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(e.title),
+                                          Text('Bid Incremement \$${e.bidIncrement}'),
+                                          Text('Starting Price: \$${e.startPrice}'),
+                                          e.locked != null
+                                              ? const Text('locked')
+                                              : const Text('')
+                                        ]);
                                   }).toList() ??
                                   []);
                         })

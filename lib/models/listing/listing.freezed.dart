@@ -21,10 +21,16 @@ ListingModel _$ListingModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ListingModel {
   double get bidIncrement => throw _privateConstructorUsedError;
+  set bidIncrement(double value) => throw _privateConstructorUsedError;
   double get startPrice => throw _privateConstructorUsedError;
+  set startPrice(double value) => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
+  set title(String value) => throw _privateConstructorUsedError;
   String? get locked => throw _privateConstructorUsedError;
+  set locked(String? value) => throw _privateConstructorUsedError;
   UserProfileModel? get lockedProfile => throw _privateConstructorUsedError;
+  set lockedProfile(UserProfileModel? value) =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -168,7 +174,7 @@ class __$$_ListingModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ListingModel with DiagnosticableTreeMixin implements _ListingModel {
-  const _$_ListingModel(
+  _$_ListingModel(
       {required this.bidIncrement,
       required this.startPrice,
       required this.title,
@@ -179,15 +185,15 @@ class _$_ListingModel with DiagnosticableTreeMixin implements _ListingModel {
       _$$_ListingModelFromJson(json);
 
   @override
-  final double bidIncrement;
+  double bidIncrement;
   @override
-  final double startPrice;
+  double startPrice;
   @override
-  final String title;
+  String title;
   @override
-  final String? locked;
+  String? locked;
   @override
-  final UserProfileModel? lockedProfile;
+  UserProfileModel? lockedProfile;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -206,26 +212,6 @@ class _$_ListingModel with DiagnosticableTreeMixin implements _ListingModel {
       ..add(DiagnosticsProperty('lockedProfile', lockedProfile));
   }
 
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_ListingModel &&
-            (identical(other.bidIncrement, bidIncrement) ||
-                other.bidIncrement == bidIncrement) &&
-            (identical(other.startPrice, startPrice) ||
-                other.startPrice == startPrice) &&
-            (identical(other.title, title) || other.title == title) &&
-            (identical(other.locked, locked) || other.locked == locked) &&
-            (identical(other.lockedProfile, lockedProfile) ||
-                other.lockedProfile == lockedProfile));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, bidIncrement, startPrice, title, locked, lockedProfile);
-
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
@@ -241,26 +227,31 @@ class _$_ListingModel with DiagnosticableTreeMixin implements _ListingModel {
 }
 
 abstract class _ListingModel implements ListingModel {
-  const factory _ListingModel(
-      {required final double bidIncrement,
-      required final double startPrice,
-      required final String title,
-      final String? locked,
-      final UserProfileModel? lockedProfile}) = _$_ListingModel;
+  factory _ListingModel(
+      {required double bidIncrement,
+      required double startPrice,
+      required String title,
+      String? locked,
+      UserProfileModel? lockedProfile}) = _$_ListingModel;
 
   factory _ListingModel.fromJson(Map<String, dynamic> json) =
       _$_ListingModel.fromJson;
 
   @override
   double get bidIncrement;
+  set bidIncrement(double value);
   @override
   double get startPrice;
+  set startPrice(double value);
   @override
   String get title;
+  set title(String value);
   @override
   String? get locked;
+  set locked(String? value);
   @override
   UserProfileModel? get lockedProfile;
+  set lockedProfile(UserProfileModel? value);
   @override
   @JsonKey(ignore: true)
   _$$_ListingModelCopyWith<_$_ListingModel> get copyWith =>

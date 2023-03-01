@@ -7,8 +7,7 @@ class ListingService {
   final _firestoreService = FirestoreService.instance;
   final db = FirebaseFirestore.instance;
 
-  Future create(Map<String, Object> data, String uid) async {
-    final ref = db.collection(collection).doc();
+  Future create(Map<String, dynamic> data, String uid) async {
     return db.collection(collection).add({...data, 'userId': uid});
   }
 

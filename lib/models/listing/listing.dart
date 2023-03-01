@@ -5,9 +5,9 @@ import 'package:flutter/foundation.dart';
 part 'listing.freezed.dart';
 part 'listing.g.dart';
 
-@freezed
+@unfreezed
 class ListingModel with _$ListingModel {
-  const factory ListingModel({
+  factory ListingModel({
       required double bidIncrement,
       required double startPrice,
       required String title,
