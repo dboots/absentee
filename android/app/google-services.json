@@ -45,7 +45,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:974477026339:android:4c22662bf6e307192dbd96",
         "android_client_info": {
-          "package_name": "com.example.demo"
+          "package_name": "bid.absentee"
         }
       },
       "oauth_client": [

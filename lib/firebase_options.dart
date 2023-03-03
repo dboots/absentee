@@ -68,7 +68,7 @@ class DefaultFirebaseOptions {
     projectId: 'absentee-a1e77',
     storageBucket: 'absentee-a1e77.appspot.com',
     iosClientId: '974477026339-bf37l70g1n0etu72i3906r442h4ki0dp.apps.googleusercontent.com',
-    iosBundleId: 'com.example.demo',
+    iosBundleId: 'bid.absentee',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -78,6 +78,6 @@ class DefaultFirebaseOptions {
     projectId: 'absentee-a1e77',
     storageBucket: 'absentee-a1e77.appspot.com',
     iosClientId: '974477026339-bf37l70g1n0etu72i3906r442h4ki0dp.apps.googleusercontent.com',
-    iosBundleId: 'com.example.demo',
+    iosBundleId: 'bid.absentee',
   );
 }
