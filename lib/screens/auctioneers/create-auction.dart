@@ -2,19 +2,21 @@ import 'package:absentee/providers/auth.provider.dart';
 import 'package:absentee/services/auction.service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:provider/provider.dart';
 
-class CreateAuctionWidget extends StatelessWidget {
-  CreateAuctionWidget({super.key});
+class CreateAuctionWidget extends StatefulWidget {
+  const CreateAuctionWidget({super.key});
 
+  @override
+  State<CreateAuctionWidget> createState() => _CreateAuctionWidgetState();
+}
+
+class _CreateAuctionWidgetState extends State<CreateAuctionWidget> {
   final _formKey = GlobalKey<FormBuilderState>();
   final _auctionService = AuctionService();
-  late final String uid;
+  final _authProvider = AuthProvider();
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
-    uid = authProvider.auth.currentUser!.uid;
     return Scaffold(
         appBar: AppBar(title: const Text("Add Listing")),
         body: SingleChildScrollView(
@@ -39,10 +41,13 @@ class CreateAuctionWidget extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState?.saveAndValidate() ?? false) {
-                    debugPrint(_formKey.currentState?.value.toString());
-                    _auctionService.create(_formKey.currentState!.value, uid).then((value) {
+                    _auctionService
+                        .create(_formKey.currentState!.value,
+                            _authProvider.auth.currentUser!.uid)
+                        .then((value) {
                       print('created!');
                       print(value);
+                      Navigator.of(context).pop();
                     });
                   } else {
                     debugPrint(_formKey.currentState?.value.toString());

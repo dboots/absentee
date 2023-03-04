@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:absentee/providers/auth.provider.dart';
 import 'package:absentee/screens/auctioneers/dashboard.dart';
@@ -63,6 +62,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late StreamSubscription subscription;
   ConnectivityResult connectivityResult = ConnectivityResult.none;
+  final AuthProvider _authProvider = AuthProvider();
 
   @override
   void initState() {
@@ -71,7 +71,6 @@ class _MyHomePageState extends State<MyHomePage> {
     subscription = Connectivity()
         .onConnectivityChanged
         .listen((ConnectivityResult result) {
-      print(result);
       setState(() {
         connectivityResult = result;
       });
@@ -86,49 +85,46 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-        appBar: AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Text(widget.title),
-        ),
-        body: Padding(
-            padding: const EdgeInsets.all(25.0),
-            child: Column(children: [
-              TextFormField(
-                decoration: const InputDecoration(
-                  border: UnderlineInputBorder(),
-                  labelText: 'Email Address',
+    if (_authProvider.auth.currentUser != null) {
+      return const AuctioneerDashboardWidget();
+    } else {
+      return Scaffold(
+          appBar: AppBar(
+            // Here we take the value from the MyHomePage object that was created by
+            // the App.build method, and use it to set our appbar title.
+            title: Text(widget.title),
+          ),
+          body: Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Column(children: [
+                TextFormField(
+                  decoration: const InputDecoration(
+                    border: UnderlineInputBorder(),
+                    labelText: 'Email Address',
+                  ),
                 ),
-              ),
-              TextFormField(
-                obscureText: false,
-                decoration: const InputDecoration(
-                  border: UnderlineInputBorder(),
-                  labelText: 'Password',
+                TextFormField(
+                  obscureText: false,
+                  decoration: const InputDecoration(
+                    border: UnderlineInputBorder(),
+                    labelText: 'Password',
+                  ),
                 ),
-              ),
-              const Padding(padding: EdgeInsets.all(25.0)),
-              ElevatedButton(
-                  onPressed: () async {
-                    authProvider
-                        .signInWithEmailAndPassword(
-                            'don@donboots.com', 'test123!z')
-                        .then((value) => Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    AuctioneerDashboardWidget())))
-                        .catchError((err) => print(err));
-                  },
-                  child: const Text("LOGIN")),
-              Text('Status: $connectivityResult')
-            ])));
+                const Padding(padding: EdgeInsets.all(25.0)),
+                ElevatedButton(
+                    onPressed: () async {
+                      _authProvider
+                          .signInWithEmailAndPassword(
+                              'don@donboots.com', 'test123!z')
+                          .then((value) {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) =>
+                                const AuctioneerDashboardWidget()));
+                      }).catchError((err) => print(err));
+                    },
+                    child: const Text("LOGIN")),
+                Text('Status: $connectivityResult')
+              ])));
+    }
   }
 }

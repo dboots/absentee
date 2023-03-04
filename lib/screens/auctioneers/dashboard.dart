@@ -1,15 +1,21 @@
 import 'package:absentee/providers/auth.provider.dart';
 import 'package:absentee/screens/auction.dart';
 import 'package:absentee/screens/auctioneers/create-auction.dart';
-import 'package:absentee/screens/listing.dart';
 import 'package:absentee/services/auction.service.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class AuctioneerDashboardWidget extends StatelessWidget {
-  AuctioneerDashboardWidget({super.key});
+class AuctioneerDashboardWidget extends StatefulWidget {
+  const AuctioneerDashboardWidget({super.key});
 
+  @override
+  State<AuctioneerDashboardWidget> createState() =>
+      _AuctioneerDashboardWidgetState();
+}
+
+class _AuctioneerDashboardWidgetState extends State<AuctioneerDashboardWidget> {
   late final String uid;
+  final AuthProvider _authProvider = AuthProvider();
+  final AuctionService _auctionService = AuctionService();
 
   @override
   Widget build(BuildContext context) {
@@ -21,19 +27,17 @@ class AuctioneerDashboardWidget extends StatelessWidget {
               child: getAuctions(context))),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => CreateAuctionWidget()));
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const CreateAuctionWidget()));
           },
           child: const Icon(Icons.add)),
     );
   }
 
   Widget getAuctions(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
-    final auctionService = AuctionService();
-    uid = authProvider.auth.currentUser!.uid;
+    uid = _authProvider.auth.currentUser!.uid;
     return StreamBuilder(
-        stream: auctionService.read(authProvider.auth.currentUser!.uid),
+        stream: _auctionService.read(_authProvider.auth.currentUser!.uid),
         builder: (context, snapshot) {
           final auctions = snapshot.data;
           return snapshot.hasData
@@ -42,14 +46,15 @@ class AuctioneerDashboardWidget extends StatelessWidget {
                       .map((auction) => GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => AuctionWidget(auctionId: auction.documentId)));
+                                builder: (context) => AuctionWidget(
+                                    auctionId: auction.documentId)));
                           },
                           child: Padding(
                               padding: const EdgeInsets.only(
                                   top: 10.0, bottom: 10.0),
                               child: Card(
                                   child: Padding(
-                                      padding: EdgeInsets.all(15.0),
+                                      padding: const EdgeInsets.all(15.0),
                                       child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
