@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:absentee/models/listing/listing.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:absentee/models/auction/auction.dart';

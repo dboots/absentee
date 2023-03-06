@@ -35,8 +35,9 @@ class AuthProvider extends ChangeNotifier {
 
   //Default status
   Status _status = Status.uninitialized;
-
   Status get status => _status;
+  late String _error;
+  String get error => _error;
   FirebaseAuth get auth => _auth;
   Stream<UserModel> get user => _auth.authStateChanges().map(_userFromFirebase);
   AuthProvider() {
@@ -87,7 +88,7 @@ class AuthProvider extends ChangeNotifier {
 
       return _userFromFirebase(result.user);
     } catch (e) {
-      print("Error on the new user registration = " + e.toString());
+      _error = e.toString();
       _status = Status.unauthenticated;
       notifyListeners();
       return UserModel(displayName: 'Null', uid: 'null');
@@ -97,12 +98,13 @@ class AuthProvider extends ChangeNotifier {
   //Method to handle user sign in using email and password
   Future<bool> signInWithEmailAndPassword(String email, String password) async {
     try {
+      print('signing in with $email and $password');
       _status = Status.authenticating;
       notifyListeners();
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       return true;
     } catch (e) {
-      print("Error on the sign in = " + e.toString());
+      _error = e.toString();
       _status = Status.unauthenticated;
       notifyListeners();
       return false;
@@ -146,7 +148,7 @@ class AuthProvider extends ChangeNotifier {
         }
       }
     } on FirebaseAuthException catch (e) {
-      print("Error on the sign in = " + e.toString());
+      _error = e.toString();
       _status = Status.unauthenticated;
       notifyListeners();
       showSnackBar(context, e.message!); // Displaying the error message
@@ -280,7 +282,7 @@ class AuthProvider extends ChangeNotifier {
       return Future.delayed(Duration.zero);
     } catch (e) {
       if (kDebugMode) {
-        print(e.toString());
+        _error = e.toString();
       } // Displaying the error message
     }
   }

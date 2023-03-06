@@ -1,6 +1,8 @@
+import 'package:absentee/main.dart';
 import 'package:absentee/providers/auth.provider.dart';
 import 'package:absentee/screens/auction.dart';
 import 'package:absentee/screens/auctioneers/create-auction.dart';
+import 'package:absentee/screens/login.dart';
 import 'package:absentee/services/auction.service.dart';
 import 'package:flutter/material.dart';
 
@@ -22,9 +24,18 @@ class _AuctioneerDashboardWidgetState extends State<AuctioneerDashboardWidget> {
     return Scaffold(
       appBar: AppBar(title: const Text("Dashboard")),
       body: SingleChildScrollView(
-          child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: getAuctions(context))),
+          child: Column(children: [
+        TextButton(
+            onPressed: () {
+              _authProvider.signOut();
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => const MainPage(title: 'logout')));
+            },
+            child: const Text('Logout')),
+        SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: getAuctions(context))
+      ])),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(

@@ -2,6 +2,7 @@ import 'package:absentee/providers/auth.provider.dart';
 import 'package:absentee/services/auction.service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:absentee/utils/form.dart';
 
 class CreateAuctionWidget extends StatefulWidget {
   const CreateAuctionWidget({super.key});
@@ -39,48 +40,27 @@ class _CreateAuctionWidgetState extends State<CreateAuctionWidget> {
           Padding(
               padding: const EdgeInsets.all(25.0),
               child: ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState?.saveAndValidate() ?? false) {
-                    _auctionService
-                        .create(_formKey.currentState!.value,
-                            _authProvider.auth.currentUser!.uid)
-                        .then((value) {
-                      print('created!');
-                      print(value);
-                      Navigator.of(context).pop();
-                    });
-                  } else {
-                    debugPrint(_formKey.currentState?.value.toString());
-                    debugPrint('validation failed');
-                  }
-                },
+                onPressed: _formKey.currentState != null &&
+                        _formKey.currentState!.saveAndValidate()
+                    ? () {
+                        if (_formKey.currentState?.saveAndValidate() ?? false) {
+                          _auctionService
+                              .create(_formKey.currentState!.value,
+                                  _authProvider.auth.currentUser!.uid)
+                              .then((value) {
+                            Navigator.of(context).pop();
+                          });
+                        } else {
+                          debugPrint(_formKey.currentState?.value.toString());
+                          debugPrint('validation failed');
+                        }
+                      }
+                    : null,
                 child: const Text(
                   'Submit',
                   style: TextStyle(color: Colors.white),
                 ),
               ))
         ]));
-  }
-
-  Widget getField(String label, String name) {
-    return FormBuilderTextField(
-      name: name,
-      decoration: InputDecoration(labelText: label),
-      onChanged: (val) {
-        print(val); // Print the text value write into TextField
-      },
-    );
-  }
-
-  Widget getDatePickerField(String label, String name) {
-    return FormBuilderDateTimePicker(
-      name: name,
-      decoration: InputDecoration(labelText: label),
-      initialEntryMode: DatePickerEntryMode.calendar,
-      initialValue: DateTime.now(),
-      onChanged: (val) {
-        print(val); // Print the text value write into TextField
-      },
-    );
   }
 }

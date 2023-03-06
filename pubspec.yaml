@@ -49,6 +49,7 @@ dependencies:
   camera:
   path_provider:
   path:
+  form_builder_validators:
 
 dev_dependencies:
   flutter_test:

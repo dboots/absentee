@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'package:absentee/screens/login.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:absentee/providers/auth.provider.dart';
 import 'package:absentee/screens/auctioneers/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
 
@@ -24,107 +26,32 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Absentee.bid',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Absentee.bid'),
+      home: const MainPage(title: 'Absentee.bid'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
+class MainPage extends StatefulWidget {
+  const MainPage({super.key, required this.title});
 
   final String title;
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MainPage> createState() => _MainPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  late StreamSubscription subscription;
-  ConnectivityResult connectivityResult = ConnectivityResult.none;
+class _MainPageState extends State<MainPage> {
   final AuthProvider _authProvider = AuthProvider();
-
-  @override
-  void initState() {
-    super.initState();
-
-    subscription = Connectivity()
-        .onConnectivityChanged
-        .listen((ConnectivityResult result) {
-      setState(() {
-        connectivityResult = result;
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    subscription.cancel();
-  }
 
   @override
   Widget build(BuildContext context) {
     if (_authProvider.auth.currentUser != null) {
       return const AuctioneerDashboardWidget();
     } else {
-      return Scaffold(
-          appBar: AppBar(
-            // Here we take the value from the MyHomePage object that was created by
-            // the App.build method, and use it to set our appbar title.
-            title: Text(widget.title),
-          ),
-          body: Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: Column(children: [
-                TextFormField(
-                  decoration: const InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: 'Email Address',
-                  ),
-                ),
-                TextFormField(
-                  obscureText: false,
-                  decoration: const InputDecoration(
-                    border: UnderlineInputBorder(),
-                    labelText: 'Password',
-                  ),
-                ),
-                const Padding(padding: EdgeInsets.all(25.0)),
-                ElevatedButton(
-                    onPressed: () async {
-                      _authProvider
-                          .signInWithEmailAndPassword(
-                              'don@donboots.com', 'test123!z')
-                          .then((value) {
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) =>
-                                const AuctioneerDashboardWidget()));
-                      }).catchError((err) => print(err));
-                    },
-                    child: const Text("LOGIN")),
-                Text('Status: $connectivityResult')
-              ])));
+      return const LoginWidget();
     }
   }
 }

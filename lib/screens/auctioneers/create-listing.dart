@@ -1,7 +1,7 @@
 import 'package:absentee/providers/auth.provider.dart';
 import 'package:absentee/screens/camera.dart';
-import 'package:absentee/services/auction.service.dart';
 import 'package:absentee/services/listing.service.dart';
+import 'package:absentee/utils/form.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -82,39 +82,5 @@ class _CreateListingWidget extends State<CreateListingWidget> {
                 ),
               ))
         ]));
-  }
-
-  Widget getField(String label, String name) {
-    return FormBuilderTextField(
-      name: name,
-      decoration: InputDecoration(labelText: label),
-      onChanged: (val) {
-        print(val); // Print the text value write into TextField
-      },
-    );
-  }
-
-  Widget getNumberField(String label, String name) {
-    return FormBuilderTextField(
-      name: name,
-      keyboardType: const TextInputType.numberWithOptions(decimal: true),
-      decoration: InputDecoration(labelText: label),
-      valueTransformer: (text) => num.tryParse(text!),
-      onChanged: (val) {
-        print(val); // Print the text value write into TextField
-      },
-    );
-  }
-
-  Widget getDatePickerField(String label, String name) {
-    return FormBuilderDateTimePicker(
-      name: name,
-      decoration: InputDecoration(labelText: label),
-      initialEntryMode: DatePickerEntryMode.calendar,
-      initialValue: DateTime.now(),
-      onChanged: (val) {
-        print(val); // Print the text value write into TextField
-      },
-    );
   }
 }
