@@ -7,7 +7,13 @@
         {
             "name": "absentee",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "deviceId": "29051FDH300CJH",
+            "args": [
+                "--dart-define=CLOUDINARY_API_KEY=981998135599634",
+                "--dart-define=CLOUDINARY_API_SECRET=j54fAsEBlAv2CDO_2TCHLo2-4YA",
+                "--dart-define=CLOUDINARY_CLOUD_NAME=dqdoqnnw3",
+              ]
         },
         {
             "name": "absentee (profile mode)",

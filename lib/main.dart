@@ -1,16 +1,15 @@
-import 'dart:async';
 import 'package:absentee/screens/login.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:absentee/providers/auth.provider.dart';
 import 'package:absentee/screens/auctioneers/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<AuthProvider>(
@@ -28,7 +27,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Absentee.bid',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
+        fontFamily: 'Lato',
       ),
       home: const MainPage(title: 'Absentee.bid'),
     );

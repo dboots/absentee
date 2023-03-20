@@ -13,16 +13,13 @@ class AuctionService {
     return db.collection(collection).add({...auction, 'userId': uid});
   }
 
-  //Method to retrieve all todos item from the same user based on uid
   Stream<List<AuctionModel>> read(user) {
-    print(user);
     return db
         .collection(collection)
-        .where('userId', isEqualTo: 'wBDz3WMJDuXnhceIRhCG1LmjYHF3')
+        .where('userId', isEqualTo: user)
         .snapshots()
         .map((snapshot) {
       return snapshot.docs.map((doc) {
-        print(doc.id);
         return AuctionModel.fromJson({...doc.data(), 'documentId': doc.id});
       }).toList();
     });

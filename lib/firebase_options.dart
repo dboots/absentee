@@ -50,12 +50,13 @@ class DefaultFirebaseOptions {
     projectId: 'absentee-a1e77',
     authDomain: 'absentee-a1e77.firebaseapp.com',
     storageBucket: 'absentee-a1e77.appspot.com',
+    databaseURL: 'https://absentee.firebaseio.com',
     measurementId: 'G-E6S0B5DR3J',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCM-ZizCsa3KHsEtIg5YKBgmfbzHjBmPkw',
-    appId: '1:974477026339:android:4c22662bf6e307192dbd96',
+    appId: '1:974477026339:android:13f92bd7c9ee4a582dbd96',
     messagingSenderId: '974477026339',
     projectId: 'absentee-a1e77',
     storageBucket: 'absentee-a1e77.appspot.com',
@@ -63,21 +64,21 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBJTUi3eFwONa8YJVTnHNJHZUp635FqXzw',
-    appId: '1:974477026339:ios:8392aacb78fb121a2dbd96',
+    appId: '1:974477026339:ios:917faf314050b0e12dbd96',
     messagingSenderId: '974477026339',
     projectId: 'absentee-a1e77',
     storageBucket: 'absentee-a1e77.appspot.com',
-    iosClientId: '974477026339-bf37l70g1n0etu72i3906r442h4ki0dp.apps.googleusercontent.com',
+    iosClientId: '974477026339-e836376ec6mjknuck8a4hr72krpg3nvs.apps.googleusercontent.com',
     iosBundleId: 'bid.absentee',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyBJTUi3eFwONa8YJVTnHNJHZUp635FqXzw',
-    appId: '1:974477026339:ios:8392aacb78fb121a2dbd96',
+    appId: '1:974477026339:ios:917faf314050b0e12dbd96',
     messagingSenderId: '974477026339',
     projectId: 'absentee-a1e77',
     storageBucket: 'absentee-a1e77.appspot.com',
-    iosClientId: '974477026339-bf37l70g1n0etu72i3906r442h4ki0dp.apps.googleusercontent.com',
+    iosClientId: '974477026339-e836376ec6mjknuck8a4hr72krpg3nvs.apps.googleusercontent.com',
     iosBundleId: 'bid.absentee',
   );
 }

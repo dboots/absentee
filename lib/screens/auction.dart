@@ -20,19 +20,14 @@ class _AuctionWidgetState extends State<AuctionWidget> {
   @override
   void initState() {
     super.initState();
-    print('initState');
-
     initAuction();
-    print('done initState');
   }
 
   initAuction() async {
-    print('initAuction');
     await auctionService.single(widget.auctionId).then((value) {
       setState(() {
         auction = value;
       });
-      print('listings ${auction?.listings}');
     });
   }
 
@@ -52,7 +47,8 @@ class _AuctionWidgetState extends State<AuctionWidget> {
                       InkWell(
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => CreateListingWidget()));
+                              builder: (context) => CreateListingWidget(
+                                  auctionId: auction!.documentId)));
                         },
                         child: const Icon(Icons.add),
                       )
@@ -60,7 +56,6 @@ class _AuctionWidgetState extends State<AuctionWidget> {
                     StreamBuilder(
                         stream: listingService.streamListings(widget.auctionId),
                         builder: (context, snapshot) {
-                          print('stream finished ${snapshot.data}');
                           return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: snapshot.data?.map((e) {
@@ -69,8 +64,10 @@ class _AuctionWidgetState extends State<AuctionWidget> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(e.title),
-                                          Text('Bid Incremement \$${e.bidIncrement}'),
-                                          Text('Starting Price: \$${e.startPrice}'),
+                                          Text(
+                                              'Bid Incremement \$${e.bidIncrement}'),
+                                          Text(
+                                              'Starting Price: \$${e.startPrice}'),
                                           e.locked != null
                                               ? const Text('locked')
                                               : const Text('')
@@ -85,24 +82,9 @@ class _AuctionWidgetState extends State<AuctionWidget> {
   @override
   void dispose() {
     super.dispose();
-    print('deactivate');
   }
 
   Widget getAuctionDetails() {
-    listingService
-        .streamListings(auction!.documentId)
-        .map((event) => print(event.length));
     return Text('Auction ${auction?.documentId}');
-  }
-
-  Stream streamListings() {
-    print('streaming');
-    return listingService
-        .streamListings(auction!.documentId)
-        .map((event) => event.map((doc) => Text(doc.title)));
-  }
-
-  List<Text>? getListing() {
-    return auction?.listings!.map((listing) => Text(listing.title)).toList();
   }
 }

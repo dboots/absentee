@@ -1,17 +1,11 @@
 import 'dart:io';
-
-import 'package:absentee/providers/auth.provider.dart';
-import 'package:absentee/screens/auctioneers/create-listing.dart';
-import 'package:absentee/services/listing.service.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:provider/provider.dart';
 
 class CameraWidget extends StatefulWidget {
-  const CameraWidget({required this.camera, super.key});
+  const CameraWidget({required this.camera, required this.callback, super.key});
   final CameraDescription camera;
+  final Function(List<XFile>) callback;
 
   @override
   State<CameraWidget> createState() => _CameraWidgetState();
@@ -20,11 +14,13 @@ class CameraWidget extends StatefulWidget {
 class _CameraWidgetState extends State<CameraWidget> {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
-  List<String> images = [];
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
+  List<XFile> images = [];
+  FlashMode _flashMode = FlashMode.off;
+  bool isOffline = false;
 
   @override
   void initState() {
-    print('init state');
     super.initState();
 
     _controller = CameraController(
@@ -36,84 +32,106 @@ class _CameraWidgetState extends State<CameraWidget> {
 
     // Next, initialize the controller. This returns a Future.
     _initializeControllerFuture = _controller.initialize();
+    //.then((value) => _controller.setFlashMode(_flashMode));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Take a picture')),
-      // You must wait until the controller is initialized before displaying the
-      // camera preview. Use a FutureBuilder to display a loading spinner until the
-      // controller has finished initializing.
-      body: FutureBuilder<void>(
-        future: _initializeControllerFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            // If the Future is complete, display the preview.
-            return Stack(
-              alignment: FractionalOffset.bottomCenter,
-              children: <Widget>[
-                Container(height: double.infinity),
-                Positioned.fill(
-                  child: AspectRatio(
-                      aspectRatio: _controller.value.aspectRatio,
-                      child: CameraPreview(_controller)),
-                ),
-                SizedBox(
-                    height: 120,
-                    child: Align(
-                      alignment: FractionalOffset.bottomCenter,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: images.length,
-                          itemBuilder: (context, index) => SizedBox(
-                              width: 125,
-                              height: 125,
-                              child: Image.file(File(images[index])))),
-                    )),
-              ],
-            );
-          } else {
-            // Otherwise, display a loading indicator.
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        // Provide an onPressed callback.
-        onPressed: () async {
-          // Take the Picture in a try / catch block. If anything goes wrong,
-          // catch the error.
-          try {
-            // Ensure that the camera is initialized.
-            await _initializeControllerFuture;
-
-            await _controller.setFlashMode(FlashMode.off);
-
-            // Attempt to take a picture and get the file `image`
-            // where it was saved.
-            final image = await _controller.takePicture();
-            print(image.path);
-
-            setState(() {
-              images = [...images, image.path];
-            });
-
-            if (!mounted) return;
-
-            // If the picture was taken, display it on a new screen.
-            // await Navigator.of(context).push(
-            //   MaterialPageRoute(
-            //     builder: (context) => CreateListingWidget(),
-            //   ),
-            // );
-          } catch (e) {
-            // If an error occurs, log the error to the console.
-            print(e);
-          }
-        },
-        child: const Icon(Icons.camera_alt),
-      ),
+    return FutureBuilder<void>(
+      future: _initializeControllerFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          // If the Future is complete, display the preview.
+          return Scaffold(
+              key: _key,
+              drawer: Drawer(
+                  child: TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: ListView.builder(
+                    itemCount: images.length,
+                    itemBuilder: (context, index) =>
+                        SizedBox(child: Image.file(File(images[index].path)))),
+              )),
+              body: Stack(
+                alignment: FractionalOffset.bottomCenter,
+                children: <Widget>[
+                  Container(height: double.infinity),
+                  Positioned.fill(
+                    child: AspectRatio(
+                        aspectRatio: _controller.value.aspectRatio,
+                        child: CameraPreview(_controller)),
+                  ),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Row(
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  _key.currentState!.openDrawer();
+                                },
+                                icon: const Icon(Icons.menu)),
+                            IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _flashMode = _flashMode == FlashMode.always
+                                        ? FlashMode.off
+                                        : FlashMode.always;
+                                    _controller.setFlashMode(_flashMode);
+                                  });
+                                },
+                                icon: Icon((_flashMode == FlashMode.always)
+                                    ? Icons.flash_on
+                                    : Icons.flash_off))
+                          ],
+                        )),
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          FloatingActionButton(
+                            // Provide an onPressed callback.
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Icon(Icons.arrow_back),
+                          ),
+                          FloatingActionButton(
+                            // Provide an onPressed callback.
+                            onPressed: () async {
+                              try {
+                                await _initializeControllerFuture;
+                                final image = await _controller.takePicture();
+                                setState(() {
+                                  images = [...images, image];
+                                });
+                                if (!mounted) return;
+                              } catch (e) {}
+                            },
+                            child: const Icon(Icons.camera_alt),
+                          ),
+                          FloatingActionButton(
+                            onPressed: () async {
+                              widget.callback(images);
+                              Navigator.of(context).pop();
+                            },
+                            child: const Icon(Icons.check),
+                          ),
+                        ],
+                      )),
+                ],
+              ));
+        } else {
+          // Otherwise, display a loading indicator.
+          return const Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 

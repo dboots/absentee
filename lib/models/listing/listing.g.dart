@@ -12,6 +12,8 @@ _$_ListingModel _$$_ListingModelFromJson(Map<String, dynamic> json) =>
       startPrice: (json['startPrice'] as num).toDouble(),
       title: json['title'] as String,
       locked: json['locked'] as String?,
+      images:
+          (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
       lockedProfile: json['lockedProfile'] == null
           ? null
           : UserProfileModel.fromJson(
@@ -24,5 +26,6 @@ Map<String, dynamic> _$$_ListingModelToJson(_$_ListingModel instance) =>
       'startPrice': instance.startPrice,
       'title': instance.title,
       'locked': instance.locked,
+      'images': instance.images,
       'lockedProfile': instance.lockedProfile,
     };

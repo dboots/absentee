@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -98,7 +100,6 @@ class AuthProvider extends ChangeNotifier {
   //Method to handle user sign in using email and password
   Future<bool> signInWithEmailAndPassword(String email, String password) async {
     try {
-      print('signing in with $email and $password');
       _status = Status.authenticating;
       notifyListeners();
       await _auth.signInWithEmailAndPassword(email: email, password: password);

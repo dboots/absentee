@@ -2,7 +2,6 @@ import 'package:absentee/main.dart';
 import 'package:absentee/providers/auth.provider.dart';
 import 'package:absentee/screens/auction.dart';
 import 'package:absentee/screens/auctioneers/create-auction.dart';
-import 'package:absentee/screens/login.dart';
 import 'package:absentee/services/auction.service.dart';
 import 'package:flutter/material.dart';
 
@@ -15,9 +14,13 @@ class AuctioneerDashboardWidget extends StatefulWidget {
 }
 
 class _AuctioneerDashboardWidgetState extends State<AuctioneerDashboardWidget> {
-  late final String uid;
   final AuthProvider _authProvider = AuthProvider();
   final AuctionService _auctionService = AuctionService();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +49,6 @@ class _AuctioneerDashboardWidgetState extends State<AuctioneerDashboardWidget> {
   }
 
   Widget getAuctions(BuildContext context) {
-    uid = _authProvider.auth.currentUser!.uid;
     return StreamBuilder(
         stream: _auctionService.read(_authProvider.auth.currentUser!.uid),
         builder: (context, snapshot) {
@@ -128,7 +130,7 @@ class _AuctioneerDashboardWidgetState extends State<AuctioneerDashboardWidget> {
                                           ]))))))
                       .toList())
               : Text(
-                  'No auctions found for $uid ${snapshot.connectionState} ${snapshot.data}');
+                  'No auctions found for ${_authProvider.auth.currentUser!.uid} ${snapshot.connectionState} ${snapshot.data}');
         });
   }
 }

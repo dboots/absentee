@@ -14,8 +14,13 @@ class LoginWidget extends StatefulWidget {
 class _LoginWidgetState extends State<LoginWidget> {
   final _formKey = GlobalKey<FormBuilderState>();
   final AuthProvider _authProvider = AuthProvider();
-  bool isValid = false;
+  bool isValid = true;
   String error = '';
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,39 +35,41 @@ class _LoginWidgetState extends State<LoginWidget> {
               },
               key: _formKey,
               child: Column(children: [
-                getField('Email Address', 'email'),
-                getField('Password', 'password', isPassword: true),
+                getField('Email Address', 'email', isRequired: true),
+                getField('Password', 'password',
+                    isPassword: true, isRequired: true),
                 Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: ElevatedButton(
-                      onPressed: isValid
-                          ? () => {
-                                _authProvider
-                                    .signInWithEmailAndPassword(
-                                        _formKey.currentState!.fields['email']!
-                                            .value,
-                                        _formKey.currentState!
-                                            .fields['password']!.value)
-                                    .then((value) {
-                                  if (value) {
-                                    Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const AuctioneerDashboardWidget()));
-                                  } else {
-                                    setState(() {
-                                      error = _authProvider.error;
-                                    });
-                                  }
-                                })
-                              }
-                          : null,
-                      child: const Text(
-                        'Submit',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    )),
-                Text(error)
+                  padding: const EdgeInsets.all(25.0),
+                  child: ElevatedButton(
+                    onPressed: isValid
+                        ? () => {
+                              _authProvider
+                                  .signInWithEmailAndPassword(
+                                      _formKey
+                                          .currentState!.fields['email']!.value,
+                                      _formKey.currentState!.fields['password']!
+                                          .value)
+                                  .then((value) {
+                                if (value) {
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const AuctioneerDashboardWidget()));
+                                } else {
+                                  setState(() {
+                                    error = _authProvider.error;
+                                  });
+                                }
+                              })
+                            }
+                        : null,
+                    child: const Text(
+                      'Submit',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+                Text(error),
               ]))),
     );
   }

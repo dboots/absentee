@@ -28,6 +28,18 @@ mixin _$ListingModel {
   set title(String value) => throw _privateConstructorUsedError;
   String? get locked => throw _privateConstructorUsedError;
   set locked(String? value) => throw _privateConstructorUsedError;
+  List<String>? get images => throw _privateConstructorUsedError;
+  set images(List<String>? value) => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  DocumentReference<Object?>? get auctionRef =>
+      throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  set auctionRef(DocumentReference<Object?>? value) =>
+      throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  String? get auctionId => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  set auctionId(String? value) => throw _privateConstructorUsedError;
   UserProfileModel? get lockedProfile => throw _privateConstructorUsedError;
   set lockedProfile(UserProfileModel? value) =>
       throw _privateConstructorUsedError;
@@ -49,6 +61,9 @@ abstract class $ListingModelCopyWith<$Res> {
       double startPrice,
       String title,
       String? locked,
+      List<String>? images,
+      @JsonKey(ignore: true) DocumentReference<Object?>? auctionRef,
+      @JsonKey(ignore: true) String? auctionId,
       UserProfileModel? lockedProfile});
 
   $UserProfileModelCopyWith<$Res>? get lockedProfile;
@@ -71,6 +86,9 @@ class _$ListingModelCopyWithImpl<$Res, $Val extends ListingModel>
     Object? startPrice = null,
     Object? title = null,
     Object? locked = freezed,
+    Object? images = freezed,
+    Object? auctionRef = freezed,
+    Object? auctionId = freezed,
     Object? lockedProfile = freezed,
   }) {
     return _then(_value.copyWith(
@@ -89,6 +107,18 @@ class _$ListingModelCopyWithImpl<$Res, $Val extends ListingModel>
       locked: freezed == locked
           ? _value.locked
           : locked // ignore: cast_nullable_to_non_nullable
+              as String?,
+      images: freezed == images
+          ? _value.images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      auctionRef: freezed == auctionRef
+          ? _value.auctionRef
+          : auctionRef // ignore: cast_nullable_to_non_nullable
+              as DocumentReference<Object?>?,
+      auctionId: freezed == auctionId
+          ? _value.auctionId
+          : auctionId // ignore: cast_nullable_to_non_nullable
               as String?,
       lockedProfile: freezed == lockedProfile
           ? _value.lockedProfile
@@ -123,6 +153,9 @@ abstract class _$$_ListingModelCopyWith<$Res>
       double startPrice,
       String title,
       String? locked,
+      List<String>? images,
+      @JsonKey(ignore: true) DocumentReference<Object?>? auctionRef,
+      @JsonKey(ignore: true) String? auctionId,
       UserProfileModel? lockedProfile});
 
   @override
@@ -144,6 +177,9 @@ class __$$_ListingModelCopyWithImpl<$Res>
     Object? startPrice = null,
     Object? title = null,
     Object? locked = freezed,
+    Object? images = freezed,
+    Object? auctionRef = freezed,
+    Object? auctionId = freezed,
     Object? lockedProfile = freezed,
   }) {
     return _then(_$_ListingModel(
@@ -163,6 +199,18 @@ class __$$_ListingModelCopyWithImpl<$Res>
           ? _value.locked
           : locked // ignore: cast_nullable_to_non_nullable
               as String?,
+      images: freezed == images
+          ? _value.images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      auctionRef: freezed == auctionRef
+          ? _value.auctionRef
+          : auctionRef // ignore: cast_nullable_to_non_nullable
+              as DocumentReference<Object?>?,
+      auctionId: freezed == auctionId
+          ? _value.auctionId
+          : auctionId // ignore: cast_nullable_to_non_nullable
+              as String?,
       lockedProfile: freezed == lockedProfile
           ? _value.lockedProfile
           : lockedProfile // ignore: cast_nullable_to_non_nullable
@@ -179,6 +227,9 @@ class _$_ListingModel with DiagnosticableTreeMixin implements _ListingModel {
       required this.startPrice,
       required this.title,
       this.locked,
+      this.images,
+      @JsonKey(ignore: true) this.auctionRef,
+      @JsonKey(ignore: true) this.auctionId,
       this.lockedProfile});
 
   factory _$_ListingModel.fromJson(Map<String, dynamic> json) =>
@@ -193,11 +244,19 @@ class _$_ListingModel with DiagnosticableTreeMixin implements _ListingModel {
   @override
   String? locked;
   @override
+  List<String>? images;
+  @override
+  @JsonKey(ignore: true)
+  DocumentReference<Object?>? auctionRef;
+  @override
+  @JsonKey(ignore: true)
+  String? auctionId;
+  @override
   UserProfileModel? lockedProfile;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ListingModel(bidIncrement: $bidIncrement, startPrice: $startPrice, title: $title, locked: $locked, lockedProfile: $lockedProfile)';
+    return 'ListingModel(bidIncrement: $bidIncrement, startPrice: $startPrice, title: $title, locked: $locked, images: $images, auctionRef: $auctionRef, auctionId: $auctionId, lockedProfile: $lockedProfile)';
   }
 
   @override
@@ -209,6 +268,9 @@ class _$_ListingModel with DiagnosticableTreeMixin implements _ListingModel {
       ..add(DiagnosticsProperty('startPrice', startPrice))
       ..add(DiagnosticsProperty('title', title))
       ..add(DiagnosticsProperty('locked', locked))
+      ..add(DiagnosticsProperty('images', images))
+      ..add(DiagnosticsProperty('auctionRef', auctionRef))
+      ..add(DiagnosticsProperty('auctionId', auctionId))
       ..add(DiagnosticsProperty('lockedProfile', lockedProfile));
   }
 
@@ -232,6 +294,9 @@ abstract class _ListingModel implements ListingModel {
       required double startPrice,
       required String title,
       String? locked,
+      List<String>? images,
+      @JsonKey(ignore: true) DocumentReference<Object?>? auctionRef,
+      @JsonKey(ignore: true) String? auctionId,
       UserProfileModel? lockedProfile}) = _$_ListingModel;
 
   factory _ListingModel.fromJson(Map<String, dynamic> json) =
@@ -249,6 +314,19 @@ abstract class _ListingModel implements ListingModel {
   @override
   String? get locked;
   set locked(String? value);
+  @override
+  List<String>? get images;
+  set images(List<String>? value);
+  @override
+  @JsonKey(ignore: true)
+  DocumentReference<Object?>? get auctionRef;
+  @JsonKey(ignore: true)
+  set auctionRef(DocumentReference<Object?>? value);
+  @override
+  @JsonKey(ignore: true)
+  String? get auctionId;
+  @JsonKey(ignore: true)
+  set auctionId(String? value);
   @override
   UserProfileModel? get lockedProfile;
   set lockedProfile(UserProfileModel? value);

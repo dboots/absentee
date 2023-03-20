@@ -15,21 +15,23 @@ class _CreateAuctionWidgetState extends State<CreateAuctionWidget> {
   final _formKey = GlobalKey<FormBuilderState>();
   final _auctionService = AuctionService();
   final _authProvider = AuthProvider();
+  bool isValid = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: const Text("Add Listing")),
-        body: SingleChildScrollView(
-            child: Column(children: [
-          Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: getListingForm(context))
-        ])));
+    return Column(children: [
+      Padding(
+          padding: const EdgeInsets.all(25.0), child: getListingForm(context))
+    ]);
   }
 
   Widget getListingForm(BuildContext context) {
     return FormBuilder(
+        onChanged: () {
+          setState(() {
+            isValid = _formKey.currentState!.saveAndValidate();
+          });
+        },
         key: _formKey,
         child: Column(children: [
           getField('Description', 'description'),
@@ -40,8 +42,7 @@ class _CreateAuctionWidgetState extends State<CreateAuctionWidget> {
           Padding(
               padding: const EdgeInsets.all(25.0),
               child: ElevatedButton(
-                onPressed: _formKey.currentState != null &&
-                        _formKey.currentState!.saveAndValidate()
+                onPressed: isValid
                     ? () {
                         if (_formKey.currentState?.saveAndValidate() ?? false) {
                           _auctionService
