@@ -31,8 +31,9 @@ class _CameraWidgetState extends State<CameraWidget> {
     );
 
     // Next, initialize the controller. This returns a Future.
-    _initializeControllerFuture = _controller.initialize();
-    //.then((value) => _controller.setFlashMode(_flashMode));
+    _initializeControllerFuture = _controller
+        .initialize()
+        .then((value) => _controller.setFlashMode(_flashMode));
   }
 
   @override
@@ -46,14 +47,43 @@ class _CameraWidgetState extends State<CameraWidget> {
               key: _key,
               drawer: Drawer(
                   child: TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: ListView.builder(
-                    itemCount: images.length,
-                    itemBuilder: (context, index) =>
-                        SizedBox(child: Image.file(File(images[index].path)))),
-              )),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: ReorderableListView(
+                          children: <Widget>[
+                            for (int index = 0; index < images.length; index++)
+                              ListTile(
+                                  key: ValueKey(index),
+                                  title: Stack(children: [
+                                    SizedBox(
+                                        child: Image.file(
+                                            File(images[index].path))),
+                                    Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  images.removeAt(index);
+                                                });
+                                              },
+                                              icon: const Icon(Icons.delete))
+                                        ])
+                                  ]))
+                          ],
+                          onReorder: (int oldIndex, int newIndex) {
+                            setState(() {
+                              if (oldIndex < newIndex) {
+                                newIndex -= 1;
+                              }
+                              final XFile image = images.removeAt(oldIndex);
+                              images.insert(newIndex, image);
+                            });
+                          }))),
               body: Stack(
                 alignment: FractionalOffset.bottomCenter,
                 children: <Widget>[
