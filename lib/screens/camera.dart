@@ -93,31 +93,44 @@ class _CameraWidgetState extends State<CameraWidget> {
                         aspectRatio: _controller.value.aspectRatio,
                         child: CameraPreview(_controller)),
                   ),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(
-                          children: [
-                            IconButton(
-                                onPressed: () {
-                                  _key.currentState!.openDrawer();
-                                },
-                                icon: const Icon(Icons.menu)),
-                            IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    _flashMode = _flashMode == FlashMode.always
-                                        ? FlashMode.off
-                                        : FlashMode.always;
-                                    _controller.setFlashMode(_flashMode);
-                                  });
-                                },
-                                icon: Icon((_flashMode == FlashMode.always)
-                                    ? Icons.flash_on
-                                    : Icons.flash_off))
-                          ],
-                        )),
+                  SafeArea(
+                    child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                    decoration: const ShapeDecoration(
+                                        shape: CircleBorder(),
+                                        color: Colors.white30),
+                                    child: IconButton(
+                                        onPressed: () {
+                                          _key.currentState!.openDrawer();
+                                        },
+                                        icon: const Icon(Icons.menu))),
+                                Container(
+                                    decoration: const ShapeDecoration(
+                                        shape: CircleBorder(),
+                                        color: Colors.white30),
+                                    child: IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            _flashMode =
+                                                _flashMode == FlashMode.always
+                                                    ? FlashMode.off
+                                                    : FlashMode.always;
+                                            _controller
+                                                .setFlashMode(_flashMode);
+                                          });
+                                        },
+                                        icon: Icon(
+                                            (_flashMode == FlashMode.always)
+                                                ? Icons.flash_on
+                                                : Icons.flash_off)))
+                              ],
+                            ))),
                   ),
                   Padding(
                       padding: const EdgeInsets.all(15.0),

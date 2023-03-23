@@ -25,52 +25,56 @@ class _LoginWidgetState extends State<LoginWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-          padding: const EdgeInsets.all(25.0),
-          child: FormBuilder(
-              onChanged: () {
-                setState(() {
-                  isValid = _formKey.currentState!.saveAndValidate();
-                });
-              },
-              key: _formKey,
-              child: Column(children: [
-                getField('Email Address', 'email', isRequired: true),
-                getField('Password', 'password',
-                    isPassword: true, isRequired: true),
-                Padding(
-                  padding: const EdgeInsets.all(25.0),
-                  child: ElevatedButton(
-                    onPressed: isValid
-                        ? () => {
-                              _authProvider
-                                  .signInWithEmailAndPassword(
-                                      _formKey
-                                          .currentState!.fields['email']!.value,
-                                      _formKey.currentState!.fields['password']!
-                                          .value)
-                                  .then((value) {
-                                if (value) {
-                                  Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const AuctioneerDashboardWidget()));
-                                } else {
-                                  setState(() {
-                                    error = _authProvider.error;
-                                  });
+      body: SafeArea(
+          child: Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: FormBuilder(
+                  onChanged: () {
+                    setState(() {
+                      isValid = _formKey.currentState!.saveAndValidate();
+                    });
+                  },
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                    getField('Email Address', 'email', isRequired: true),
+                    getField('Password', 'password',
+                        isPassword: true, isRequired: true),
+                    Padding(
+                      padding: const EdgeInsets.all(25.0),
+                      child: ElevatedButton(
+                        onPressed: isValid
+                            ? () => {
+                                  _authProvider
+                                      .signInWithEmailAndPassword(
+                                          _formKey.currentState!
+                                              .fields['email']!.value,
+                                          _formKey.currentState!
+                                              .fields['password']!.value)
+                                      .then((value) {
+                                    if (value) {
+                                      Navigator.of(context).pushReplacement(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const AuctioneerDashboardWidget()));
+                                    } else {
+                                      setState(() {
+                                        error = _authProvider.error;
+                                      });
+                                    }
+                                  })
                                 }
-                              })
-                            }
-                        : null,
-                    child: const Text(
-                      'Submit',
-                      style: TextStyle(color: Colors.white),
+                            : null,
+                        child: const Text(
+                          'Submit',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                Text(error),
-              ]))),
+                    Text(error),
+                  ])))),
     );
   }
 }
