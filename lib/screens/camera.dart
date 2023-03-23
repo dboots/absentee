@@ -50,8 +50,9 @@ class _CameraWidgetState extends State<CameraWidget> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: ReorderableListView(
-                          children: <Widget>[
+                      child: SafeArea(
+                          child: ReorderableListView(
+                              children: <Widget>[
                             for (int index = 0; index < images.length; index++)
                               ListTile(
                                   key: ValueKey(index),
@@ -65,25 +66,30 @@ class _CameraWidgetState extends State<CameraWidget> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.end,
                                         children: [
-                                          IconButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  images.removeAt(index);
-                                                });
-                                              },
-                                              icon: const Icon(Icons.delete))
+                                          Container(
+                                              decoration: const ShapeDecoration(
+                                                  shape: CircleBorder(),
+                                                  color: Colors.white30),
+                                              child: IconButton(
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      images.removeAt(index);
+                                                    });
+                                                  },
+                                                  icon:
+                                                      const Icon(Icons.delete)))
                                         ])
                                   ]))
                           ],
-                          onReorder: (int oldIndex, int newIndex) {
-                            setState(() {
-                              if (oldIndex < newIndex) {
-                                newIndex -= 1;
-                              }
-                              final XFile image = images.removeAt(oldIndex);
-                              images.insert(newIndex, image);
-                            });
-                          }))),
+                              onReorder: (int oldIndex, int newIndex) {
+                                setState(() {
+                                  if (oldIndex < newIndex) {
+                                    newIndex -= 1;
+                                  }
+                                  final XFile image = images.removeAt(oldIndex);
+                                  images.insert(newIndex, image);
+                                });
+                              })))),
               body: Stack(
                 alignment: FractionalOffset.bottomCenter,
                 children: <Widget>[
@@ -109,7 +115,7 @@ class _CameraWidgetState extends State<CameraWidget> {
                                         onPressed: () {
                                           _key.currentState!.openDrawer();
                                         },
-                                        icon: const Icon(Icons.menu))),
+                                        icon: const Icon(Icons.photo_library))),
                                 Container(
                                     decoration: const ShapeDecoration(
                                         shape: CircleBorder(),
