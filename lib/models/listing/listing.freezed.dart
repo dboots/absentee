@@ -20,6 +20,8 @@ ListingModel _$ListingModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ListingModel {
+  String get uid => throw _privateConstructorUsedError;
+  set uid(String value) => throw _privateConstructorUsedError;
   double get bidIncrement => throw _privateConstructorUsedError;
   set bidIncrement(double value) => throw _privateConstructorUsedError;
   double get startPrice => throw _privateConstructorUsedError;
@@ -30,6 +32,9 @@ mixin _$ListingModel {
   set locked(String? value) => throw _privateConstructorUsedError;
   List<String>? get images => throw _privateConstructorUsedError;
   set images(List<String>? value) => throw _privateConstructorUsedError;
+  UserProfileModel? get lockedProfile => throw _privateConstructorUsedError;
+  set lockedProfile(UserProfileModel? value) =>
+      throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   DocumentReference<Object?>? get auctionRef =>
       throw _privateConstructorUsedError;
@@ -40,9 +45,6 @@ mixin _$ListingModel {
   String? get auctionId => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   set auctionId(String? value) => throw _privateConstructorUsedError;
-  UserProfileModel? get lockedProfile => throw _privateConstructorUsedError;
-  set lockedProfile(UserProfileModel? value) =>
-      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -57,14 +59,15 @@ abstract class $ListingModelCopyWith<$Res> {
       _$ListingModelCopyWithImpl<$Res, ListingModel>;
   @useResult
   $Res call(
-      {double bidIncrement,
+      {String uid,
+      double bidIncrement,
       double startPrice,
       String title,
       String? locked,
       List<String>? images,
+      UserProfileModel? lockedProfile,
       @JsonKey(ignore: true) DocumentReference<Object?>? auctionRef,
-      @JsonKey(ignore: true) String? auctionId,
-      UserProfileModel? lockedProfile});
+      @JsonKey(ignore: true) String? auctionId});
 
   $UserProfileModelCopyWith<$Res>? get lockedProfile;
 }
@@ -82,16 +85,21 @@ class _$ListingModelCopyWithImpl<$Res, $Val extends ListingModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uid = null,
     Object? bidIncrement = null,
     Object? startPrice = null,
     Object? title = null,
     Object? locked = freezed,
     Object? images = freezed,
+    Object? lockedProfile = freezed,
     Object? auctionRef = freezed,
     Object? auctionId = freezed,
-    Object? lockedProfile = freezed,
   }) {
     return _then(_value.copyWith(
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String,
       bidIncrement: null == bidIncrement
           ? _value.bidIncrement
           : bidIncrement // ignore: cast_nullable_to_non_nullable
@@ -112,6 +120,10 @@ class _$ListingModelCopyWithImpl<$Res, $Val extends ListingModel>
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      lockedProfile: freezed == lockedProfile
+          ? _value.lockedProfile
+          : lockedProfile // ignore: cast_nullable_to_non_nullable
+              as UserProfileModel?,
       auctionRef: freezed == auctionRef
           ? _value.auctionRef
           : auctionRef // ignore: cast_nullable_to_non_nullable
@@ -120,10 +132,6 @@ class _$ListingModelCopyWithImpl<$Res, $Val extends ListingModel>
           ? _value.auctionId
           : auctionId // ignore: cast_nullable_to_non_nullable
               as String?,
-      lockedProfile: freezed == lockedProfile
-          ? _value.lockedProfile
-          : lockedProfile // ignore: cast_nullable_to_non_nullable
-              as UserProfileModel?,
     ) as $Val);
   }
 
@@ -149,14 +157,15 @@ abstract class _$$_ListingModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {double bidIncrement,
+      {String uid,
+      double bidIncrement,
       double startPrice,
       String title,
       String? locked,
       List<String>? images,
+      UserProfileModel? lockedProfile,
       @JsonKey(ignore: true) DocumentReference<Object?>? auctionRef,
-      @JsonKey(ignore: true) String? auctionId,
-      UserProfileModel? lockedProfile});
+      @JsonKey(ignore: true) String? auctionId});
 
   @override
   $UserProfileModelCopyWith<$Res>? get lockedProfile;
@@ -173,16 +182,21 @@ class __$$_ListingModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uid = null,
     Object? bidIncrement = null,
     Object? startPrice = null,
     Object? title = null,
     Object? locked = freezed,
     Object? images = freezed,
+    Object? lockedProfile = freezed,
     Object? auctionRef = freezed,
     Object? auctionId = freezed,
-    Object? lockedProfile = freezed,
   }) {
     return _then(_$_ListingModel(
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String,
       bidIncrement: null == bidIncrement
           ? _value.bidIncrement
           : bidIncrement // ignore: cast_nullable_to_non_nullable
@@ -203,6 +217,10 @@ class __$$_ListingModelCopyWithImpl<$Res>
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      lockedProfile: freezed == lockedProfile
+          ? _value.lockedProfile
+          : lockedProfile // ignore: cast_nullable_to_non_nullable
+              as UserProfileModel?,
       auctionRef: freezed == auctionRef
           ? _value.auctionRef
           : auctionRef // ignore: cast_nullable_to_non_nullable
@@ -211,10 +229,6 @@ class __$$_ListingModelCopyWithImpl<$Res>
           ? _value.auctionId
           : auctionId // ignore: cast_nullable_to_non_nullable
               as String?,
-      lockedProfile: freezed == lockedProfile
-          ? _value.lockedProfile
-          : lockedProfile // ignore: cast_nullable_to_non_nullable
-              as UserProfileModel?,
     ));
   }
 }
@@ -223,18 +237,22 @@ class __$$_ListingModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ListingModel with DiagnosticableTreeMixin implements _ListingModel {
   _$_ListingModel(
-      {required this.bidIncrement,
+      {this.uid = '',
+      required this.bidIncrement,
       required this.startPrice,
       required this.title,
       this.locked,
       this.images,
+      this.lockedProfile,
       @JsonKey(ignore: true) this.auctionRef,
-      @JsonKey(ignore: true) this.auctionId,
-      this.lockedProfile});
+      @JsonKey(ignore: true) this.auctionId});
 
   factory _$_ListingModel.fromJson(Map<String, dynamic> json) =>
       _$$_ListingModelFromJson(json);
 
+  @override
+  @JsonKey()
+  String uid;
   @override
   double bidIncrement;
   @override
@@ -246,17 +264,17 @@ class _$_ListingModel with DiagnosticableTreeMixin implements _ListingModel {
   @override
   List<String>? images;
   @override
+  UserProfileModel? lockedProfile;
+  @override
   @JsonKey(ignore: true)
   DocumentReference<Object?>? auctionRef;
   @override
   @JsonKey(ignore: true)
   String? auctionId;
-  @override
-  UserProfileModel? lockedProfile;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ListingModel(bidIncrement: $bidIncrement, startPrice: $startPrice, title: $title, locked: $locked, images: $images, auctionRef: $auctionRef, auctionId: $auctionId, lockedProfile: $lockedProfile)';
+    return 'ListingModel(uid: $uid, bidIncrement: $bidIncrement, startPrice: $startPrice, title: $title, locked: $locked, images: $images, lockedProfile: $lockedProfile, auctionRef: $auctionRef, auctionId: $auctionId)';
   }
 
   @override
@@ -264,14 +282,15 @@ class _$_ListingModel with DiagnosticableTreeMixin implements _ListingModel {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'ListingModel'))
+      ..add(DiagnosticsProperty('uid', uid))
       ..add(DiagnosticsProperty('bidIncrement', bidIncrement))
       ..add(DiagnosticsProperty('startPrice', startPrice))
       ..add(DiagnosticsProperty('title', title))
       ..add(DiagnosticsProperty('locked', locked))
       ..add(DiagnosticsProperty('images', images))
+      ..add(DiagnosticsProperty('lockedProfile', lockedProfile))
       ..add(DiagnosticsProperty('auctionRef', auctionRef))
-      ..add(DiagnosticsProperty('auctionId', auctionId))
-      ..add(DiagnosticsProperty('lockedProfile', lockedProfile));
+      ..add(DiagnosticsProperty('auctionId', auctionId));
   }
 
   @JsonKey(ignore: true)
@@ -290,18 +309,22 @@ class _$_ListingModel with DiagnosticableTreeMixin implements _ListingModel {
 
 abstract class _ListingModel implements ListingModel {
   factory _ListingModel(
-      {required double bidIncrement,
+      {String uid,
+      required double bidIncrement,
       required double startPrice,
       required String title,
       String? locked,
       List<String>? images,
+      UserProfileModel? lockedProfile,
       @JsonKey(ignore: true) DocumentReference<Object?>? auctionRef,
-      @JsonKey(ignore: true) String? auctionId,
-      UserProfileModel? lockedProfile}) = _$_ListingModel;
+      @JsonKey(ignore: true) String? auctionId}) = _$_ListingModel;
 
   factory _ListingModel.fromJson(Map<String, dynamic> json) =
       _$_ListingModel.fromJson;
 
+  @override
+  String get uid;
+  set uid(String value);
   @override
   double get bidIncrement;
   set bidIncrement(double value);
@@ -318,6 +341,9 @@ abstract class _ListingModel implements ListingModel {
   List<String>? get images;
   set images(List<String>? value);
   @override
+  UserProfileModel? get lockedProfile;
+  set lockedProfile(UserProfileModel? value);
+  @override
   @JsonKey(ignore: true)
   DocumentReference<Object?>? get auctionRef;
   @JsonKey(ignore: true)
@@ -327,9 +353,6 @@ abstract class _ListingModel implements ListingModel {
   String? get auctionId;
   @JsonKey(ignore: true)
   set auctionId(String? value);
-  @override
-  UserProfileModel? get lockedProfile;
-  set lockedProfile(UserProfileModel? value);
   @override
   @JsonKey(ignore: true)
   _$$_ListingModelCopyWith<_$_ListingModel> get copyWith =>

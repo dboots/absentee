@@ -1,5 +1,6 @@
 import 'package:absentee/models/auction/auction.dart';
 import 'package:absentee/screens/auctioneers/create-listing.dart';
+import 'package:absentee/screens/listing.dart';
 import 'package:absentee/services/auction.service.dart';
 import 'package:absentee/services/listing.service.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class _AuctionWidgetState extends State<AuctionWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("Dashboard")),
+        appBar: AppBar(title: const Text("Auction")),
         body: auction != null
             ? SingleChildScrollView(
                 child: Column(
@@ -58,20 +59,30 @@ class _AuctionWidgetState extends State<AuctionWidget> {
                         builder: (context, snapshot) {
                           return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: snapshot.data?.map((e) {
-                                    return Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(e.title),
-                                          Text(
-                                              'Bid Incremement \$${e.bidIncrement}'),
-                                          Text(
-                                              'Starting Price: \$${e.startPrice}'),
-                                          e.locked != null
-                                              ? const Text('locked')
-                                              : const Text('')
-                                        ]);
+                              children: snapshot.data?.map((listing) {
+                                    return GestureDetector(
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(listing.title),
+                                            Text(
+                                                'Bid Incremement \$${listing.bidIncrement}'),
+                                            Text(
+                                                'Starting Price: \$${listing.startPrice}'),
+                                            listing.locked != null
+                                                ? const Text('locked')
+                                                : const Text('')
+                                          ]),
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ListingWidget(
+                                                        listingId:
+                                                            listing.uid)));
+                                      },
+                                    );
                                   }).toList() ??
                                   []);
                         })

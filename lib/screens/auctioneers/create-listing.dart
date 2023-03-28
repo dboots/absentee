@@ -46,7 +46,7 @@ class _CreateListingWidget extends State<CreateListingWidget> {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: _getUid(),
-        builder: ((context, snapshot) {
+        builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Scaffold(
                 appBar: AppBar(title: const Text("Add Listing")),
@@ -59,7 +59,7 @@ class _CreateListingWidget extends State<CreateListingWidget> {
           }
 
           return const CircularProgressIndicator();
-        }));
+        });
   }
 
   Widget getListingForm(BuildContext context) {

@@ -31,9 +31,9 @@ class _CameraWidgetState extends State<CameraWidget> {
     );
 
     // Next, initialize the controller. This returns a Future.
-    _initializeControllerFuture = _controller
-        .initialize()
-        .then((value) => _controller.setFlashMode(_flashMode));
+    _initializeControllerFuture = _controller.initialize().then((value) {
+      _controller.setFlashMode(_flashMode);
+    });
   }
 
   @override

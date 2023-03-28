@@ -8,6 +8,7 @@ part of 'listing.dart';
 
 _$_ListingModel _$$_ListingModelFromJson(Map<String, dynamic> json) =>
     _$_ListingModel(
+      uid: json['uid'] as String? ?? '',
       bidIncrement: (json['bidIncrement'] as num).toDouble(),
       startPrice: (json['startPrice'] as num).toDouble(),
       title: json['title'] as String,
@@ -22,6 +23,7 @@ _$_ListingModel _$$_ListingModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_ListingModelToJson(_$_ListingModel instance) =>
     <String, dynamic>{
+      'uid': instance.uid,
       'bidIncrement': instance.bidIncrement,
       'startPrice': instance.startPrice,
       'title': instance.title,

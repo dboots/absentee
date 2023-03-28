@@ -9,6 +9,8 @@ part 'listing.g.dart';
 @unfreezed
 class ListingModel with _$ListingModel {
   factory ListingModel({
+    @Default('')
+    String uid,
     required double bidIncrement,
     required double startPrice,
     required String title,

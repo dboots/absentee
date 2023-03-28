@@ -19,10 +19,13 @@ class _CreateAuctionWidgetState extends State<CreateAuctionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Padding(
-          padding: const EdgeInsets.all(25.0), child: getListingForm(context))
-    ]);
+    return Scaffold(
+        appBar: AppBar(title: const Text('Create Auction')),
+        body: Column(children: [
+          Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: getListingForm(context))
+        ]));
   }
 
   Widget getListingForm(BuildContext context) {

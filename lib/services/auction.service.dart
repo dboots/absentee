@@ -1,11 +1,9 @@
 import 'package:absentee/models/listing/listing.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:absentee/models/auction/auction.dart';
-import 'package:absentee/services/firestore.service.dart';
 
 class AuctionService {
   final String collection = 'auctions';
-  final _firestoreService = FirestoreService.instance;
   final db = FirebaseFirestore.instance;
 
   Future create(auction, uid) async {
@@ -25,7 +23,6 @@ class AuctionService {
     });
   }
 
-  //Method to retrieve all todos item from the same user based on uid
   Future<AuctionModel> single(String id) {
     final ref = db.collection(collection).doc(id);
     return ref.get().then((auction) {

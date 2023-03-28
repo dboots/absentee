@@ -72,14 +72,6 @@ class _AuctioneerDashboardWidgetState extends State<AuctioneerDashboardWidget> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            //AIzaSyCGqQ0w0CUG5ah7kNyIU_uwv2RB-IQvTwI
-                                            Container(
-                                                alignment: Alignment.center,
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        color: Colors.black)),
-                                                child: Image.network(
-                                                    'https://maps.googleapis.com/maps/api/staticmap?center=Berkeley,CA&zoom=14&size=500x200&key=AIzaSyCGqQ0w0CUG5ah7kNyIU_uwv2RB-IQvTwI')),
                                             Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
