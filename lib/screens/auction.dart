@@ -1,8 +1,8 @@
 import 'package:absentee/models/auction/auction.dart';
 import 'package:absentee/screens/auctioneers/create-listing.dart';
-import 'package:absentee/screens/listing.dart';
 import 'package:absentee/services/auction.service.dart';
 import 'package:absentee/services/listing.service.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class AuctionWidget extends StatefulWidget {
@@ -35,58 +35,68 @@ class _AuctionWidgetState extends State<AuctionWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("Auction")),
+        appBar:
+            AppBar(title: Text(auction == null ? 'Loading' : auction!.title)),
         body: auction != null
             ? SingleChildScrollView(
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                    getAuctionDetails(),
-                    Row(children: [
-                      const Text('Listings'),
-                      InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => CreateListingWidget(
-                                  auctionId: auction!.documentId)));
-                        },
-                        child: const Icon(Icons.add),
-                      )
-                    ]),
-                    StreamBuilder(
-                        stream: listingService.streamListings(widget.auctionId),
-                        builder: (context, snapshot) {
-                          return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: snapshot.data?.map((listing) {
-                                    return GestureDetector(
-                                      child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(listing.title),
-                                            Text(
-                                                'Bid Incremement \$${listing.bidIncrement}'),
-                                            Text(
-                                                'Starting Price: \$${listing.startPrice}'),
-                                            listing.locked != null
-                                                ? const Text('locked')
-                                                : const Text('')
-                                          ]),
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ListingWidget(
-                                                        listingId:
-                                                            listing.uid)));
-                                      },
-                                    );
-                                  }).toList() ??
-                                  []);
-                        })
-                  ]))
+                child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          getAuctionDetails(),
+                          Column(children: [
+                            const Text('Catalog',
+                                style: TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold)),
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => CreateListingWidget(
+                                        auctionId: widget.auctionId,
+                                        listingId: null)));
+                              },
+                              child: const Text('Add Lot'),
+                            )
+                          ]),
+                          StreamBuilder(
+                              stream: listingService
+                                  .streamListings(widget.auctionId),
+                              builder: (context, snapshot) {
+                                return Wrap(
+                                    children: snapshot.data?.map((listing) {
+                                          return GestureDetector(
+                                            child: Card(
+                                                child: Column(children: [
+                                              listing.images != null
+                                                  ? FractionallySizedBox(
+                                                      widthFactor: 0.48,
+                                                      child: _getImageCarousel(
+                                                          listing.images))
+                                                  : const Text(''),
+                                              Text(
+                                                  '${listing.title} (Lot #${listing.lotNumber})'),
+                                              listing.locked != null
+                                                  ? const Text('locked')
+                                                  : const Text('')
+                                            ])),
+                                            onTap: () {
+                                              Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          CreateListingWidget(
+                                                              auctionId: auction!
+                                                                  .documentId,
+                                                              listingId: listing
+                                                                  .uid)));
+                                            },
+                                          );
+                                        }).toList() ??
+                                        []);
+                              })
+                        ])))
             : const CircularProgressIndicator());
   }
 
@@ -95,7 +105,29 @@ class _AuctionWidgetState extends State<AuctionWidget> {
     super.dispose();
   }
 
+  Widget _getImageCarousel(List<String>? images) {
+    return CarouselSlider(
+        options: CarouselOptions(height: 150.0),
+        items: images!.map((i) {
+          return Builder(
+            builder: (BuildContext context) {
+              return Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                  decoration: const BoxDecoration(color: Colors.black12),
+                  child: Image.network(i));
+            },
+          );
+        }).toList());
+  }
+
   Widget getAuctionDetails() {
-    return Text('Auction ${auction?.documentId}');
+    return Padding(
+        padding: const EdgeInsets.only(bottom: 10.0),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(auction!.address, style: const TextStyle(fontSize: 16.0)),
+          Text('${auction!.city!}, ${auction!.state!}',
+              style: const TextStyle(fontSize: 16.0))
+        ]));
   }
 }

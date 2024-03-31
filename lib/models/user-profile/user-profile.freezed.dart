@@ -82,11 +82,11 @@ class _$UserProfileModelCopyWithImpl<$Res, $Val extends UserProfileModel>
 }
 
 /// @nodoc
-abstract class _$$_UserProfileModelCopyWith<$Res>
+abstract class _$$UserProfileModelImplCopyWith<$Res>
     implements $UserProfileModelCopyWith<$Res> {
-  factory _$$_UserProfileModelCopyWith(
-          _$_UserProfileModel value, $Res Function(_$_UserProfileModel) then) =
-      __$$_UserProfileModelCopyWithImpl<$Res>;
+  factory _$$UserProfileModelImplCopyWith(_$UserProfileModelImpl value,
+          $Res Function(_$UserProfileModelImpl) then) =
+      __$$UserProfileModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String name, UserProfileModel? locked});
@@ -96,11 +96,11 @@ abstract class _$$_UserProfileModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_UserProfileModelCopyWithImpl<$Res>
-    extends _$UserProfileModelCopyWithImpl<$Res, _$_UserProfileModel>
-    implements _$$_UserProfileModelCopyWith<$Res> {
-  __$$_UserProfileModelCopyWithImpl(
-      _$_UserProfileModel _value, $Res Function(_$_UserProfileModel) _then)
+class __$$UserProfileModelImplCopyWithImpl<$Res>
+    extends _$UserProfileModelCopyWithImpl<$Res, _$UserProfileModelImpl>
+    implements _$$UserProfileModelImplCopyWith<$Res> {
+  __$$UserProfileModelImplCopyWithImpl(_$UserProfileModelImpl _value,
+      $Res Function(_$UserProfileModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -109,7 +109,7 @@ class __$$_UserProfileModelCopyWithImpl<$Res>
     Object? name = null,
     Object? locked = freezed,
   }) {
-    return _then(_$_UserProfileModel(
+    return _then(_$UserProfileModelImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -124,13 +124,13 @@ class __$$_UserProfileModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_UserProfileModel
+class _$UserProfileModelImpl
     with DiagnosticableTreeMixin
     implements _UserProfileModel {
-  const _$_UserProfileModel({required this.name, this.locked});
+  const _$UserProfileModelImpl({required this.name, this.locked});
 
-  factory _$_UserProfileModel.fromJson(Map<String, dynamic> json) =>
-      _$$_UserProfileModelFromJson(json);
+  factory _$UserProfileModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserProfileModelImplFromJson(json);
 
   @override
   final String name;
@@ -152,10 +152,10 @@ class _$_UserProfileModel
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UserProfileModel &&
+            other is _$UserProfileModelImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.locked, locked) || other.locked == locked));
   }
@@ -167,12 +167,13 @@ class _$_UserProfileModel
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UserProfileModelCopyWith<_$_UserProfileModel> get copyWith =>
-      __$$_UserProfileModelCopyWithImpl<_$_UserProfileModel>(this, _$identity);
+  _$$UserProfileModelImplCopyWith<_$UserProfileModelImpl> get copyWith =>
+      __$$UserProfileModelImplCopyWithImpl<_$UserProfileModelImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_UserProfileModelToJson(
+    return _$$UserProfileModelImplToJson(
       this,
     );
   }
@@ -181,10 +182,10 @@ class _$_UserProfileModel
 abstract class _UserProfileModel implements UserProfileModel {
   const factory _UserProfileModel(
       {required final String name,
-      final UserProfileModel? locked}) = _$_UserProfileModel;
+      final UserProfileModel? locked}) = _$UserProfileModelImpl;
 
   factory _UserProfileModel.fromJson(Map<String, dynamic> json) =
-      _$_UserProfileModel.fromJson;
+      _$UserProfileModelImpl.fromJson;
 
   @override
   String get name;
@@ -192,6 +193,6 @@ abstract class _UserProfileModel implements UserProfileModel {
   UserProfileModel? get locked;
   @override
   @JsonKey(ignore: true)
-  _$$_UserProfileModelCopyWith<_$_UserProfileModel> get copyWith =>
+  _$$UserProfileModelImplCopyWith<_$UserProfileModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

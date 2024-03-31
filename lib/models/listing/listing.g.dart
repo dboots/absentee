@@ -6,28 +6,40 @@ part of 'listing.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ListingModel _$$_ListingModelFromJson(Map<String, dynamic> json) =>
-    _$_ListingModel(
+_$ListingModelImpl _$$ListingModelImplFromJson(Map<String, dynamic> json) =>
+    _$ListingModelImpl(
       uid: json['uid'] as String? ?? '',
-      bidIncrement: (json['bidIncrement'] as num).toDouble(),
-      startPrice: (json['startPrice'] as num).toDouble(),
       title: json['title'] as String,
+      startPrice: (json['startPrice'] as num?)?.toDouble(),
+      lotNumber: json['lotNumber'] as String?,
+      location: json['location'] as String?,
+      quantity: json['quantity'] as int?,
+      description: json['description'] as String?,
       locked: json['locked'] as String?,
+      measurements: json['measurements'] as String?,
       images:
           (json['images'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      seller: json['seller'] == null
+          ? null
+          : SellerModel.fromJson(json['seller'] as Map<String, dynamic>),
       lockedProfile: json['lockedProfile'] == null
           ? null
           : UserProfileModel.fromJson(
               json['lockedProfile'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$_ListingModelToJson(_$_ListingModel instance) =>
+Map<String, dynamic> _$$ListingModelImplToJson(_$ListingModelImpl instance) =>
     <String, dynamic>{
       'uid': instance.uid,
-      'bidIncrement': instance.bidIncrement,
-      'startPrice': instance.startPrice,
       'title': instance.title,
+      'startPrice': instance.startPrice,
+      'lotNumber': instance.lotNumber,
+      'location': instance.location,
+      'quantity': instance.quantity,
+      'description': instance.description,
       'locked': instance.locked,
+      'measurements': instance.measurements,
       'images': instance.images,
+      'seller': instance.seller,
       'lockedProfile': instance.lockedProfile,
     };

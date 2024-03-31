@@ -1,11 +1,13 @@
 import 'dart:io';
+import 'package:absentee/utils/VideoPlayer.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'dart:developer';
 
 class CameraWidget extends StatefulWidget {
   const CameraWidget({required this.camera, required this.callback, super.key});
   final CameraDescription camera;
-  final Function(List<XFile>) callback;
+  final Function(List<File>) callback;
 
   @override
   State<CameraWidget> createState() => _CameraWidgetState();
@@ -15,22 +17,20 @@ class _CameraWidgetState extends State<CameraWidget> {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
   final GlobalKey<ScaffoldState> _key = GlobalKey();
-  List<XFile> images = [];
+  List<File> images = [];
   FlashMode _flashMode = FlashMode.off;
   bool isOffline = false;
+  bool _isRecording = false;
 
   @override
   void initState() {
     super.initState();
 
     _controller = CameraController(
-      // Get a specific camera from the list of available cameras.
       widget.camera,
-      // Define the resolution to use.
       ResolutionPreset.medium,
     );
 
-    // Next, initialize the controller. This returns a Future.
     _initializeControllerFuture = _controller.initialize().then((value) {
       _controller.setFlashMode(_flashMode);
     });
@@ -57,9 +57,17 @@ class _CameraWidgetState extends State<CameraWidget> {
                               ListTile(
                                   key: ValueKey(index),
                                   title: Stack(children: [
-                                    SizedBox(
-                                        child: Image.file(
-                                            File(images[index].path))),
+                                    if (images[index]
+                                        .path
+                                        .split('.')
+                                        .last
+                                        .contains('mp4'))
+                                      AbsenteeVideo(
+                                          file: File(images[index].path))
+                                    else
+                                      SizedBox(
+                                          child: Image.file(
+                                              File(images[index].path))),
                                     Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.end,
@@ -86,7 +94,7 @@ class _CameraWidgetState extends State<CameraWidget> {
                                   if (oldIndex < newIndex) {
                                     newIndex -= 1;
                                   }
-                                  final XFile image = images.removeAt(oldIndex);
+                                  final File image = images.removeAt(oldIndex);
                                   images.insert(newIndex, image);
                                 });
                               })))),
@@ -145,27 +153,56 @@ class _CameraWidgetState extends State<CameraWidget> {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           FloatingActionButton(
-                            // Provide an onPressed callback.
+                            heroTag: 'back',
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
                             child: const Icon(Icons.arrow_back),
                           ),
                           FloatingActionButton(
-                            // Provide an onPressed callback.
+                            heroTag: 'shoot',
                             onPressed: () async {
+                              log('here');
                               try {
                                 await _initializeControllerFuture;
+                                log('taking picture');
                                 final image = await _controller.takePicture();
+                                log('${image.mimeType}');
+                                log('taking picture done');
                                 setState(() {
-                                  images = [...images, image];
+                                  log('setting state ${image.path} ${images.length}');
+                                  images = [...images, File(image.path)];
+                                  log('state set ${images.length}');
                                 });
                                 if (!mounted) return;
-                              } catch (e) {}
+                              } catch (e) {
+                                log('error found ${e.toString()}');
+                              }
                             },
                             child: const Icon(Icons.camera_alt),
                           ),
                           FloatingActionButton(
+                            heroTag: 'record',
+                            onPressed: () async {
+                              if (_isRecording) {
+                                final file =
+                                    await _controller.stopVideoRecording();
+                                print('stop recording');
+                                print('$file');
+                                images = [...images, File(file.path)];
+                                setState(() => _isRecording = false);
+                              } else {
+                                await _controller.prepareForVideoRecording();
+                                await _controller.startVideoRecording();
+                                setState(() => _isRecording = true);
+                              }
+                            },
+                            child: _isRecording
+                                ? const Icon(Icons.stop_outlined)
+                                : const Icon(Icons.play_arrow_outlined),
+                          ),
+                          FloatingActionButton(
+                            heroTag: 'finish',
                             onPressed: () async {
                               widget.callback(images);
                               Navigator.of(context).pop();

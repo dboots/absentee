@@ -8,7 +8,7 @@
             "name": "absentee",
             "request": "launch",
             "type": "dart",
-            "deviceId": "29051FDH300CJH",
+            "deviceId": "chrome",
             "args": [
                 "--dart-define=CLOUDINARY_API_KEY=981998135599634",
                 "--dart-define=CLOUDINARY_API_SECRET=j54fAsEBlAv2CDO_2TCHLo2-4YA",

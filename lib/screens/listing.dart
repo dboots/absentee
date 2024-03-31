@@ -39,8 +39,6 @@ class _ListingWidgetState extends State<ListingWidget> {
                           style: const TextStyle(
                               fontSize: 28, fontWeight: FontWeight.bold),
                         ),
-                        Text(_getCurrency(listing.bidIncrement)),
-                        Text(_getCurrency(listing.startPrice))
                       ])),
                 )
               : const CircularProgressIndicator();

@@ -31,50 +31,53 @@ class _LoginWidgetState extends State<LoginWidget> {
               child: FormBuilder(
                   onChanged: () {
                     setState(() {
-                      isValid = _formKey.currentState!.saveAndValidate();
+                      isValid = _formKey.currentState!.isValid;
                     });
                   },
                   key: _formKey,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                    getField('Email Address', 'email', isRequired: true),
-                    getField('Password', 'password',
-                        isPassword: true, isRequired: true),
-                    Padding(
-                      padding: const EdgeInsets.all(25.0),
-                      child: ElevatedButton(
-                        onPressed: isValid
-                            ? () => {
-                                  _authProvider
-                                      .signInWithEmailAndPassword(
-                                          _formKey.currentState!
-                                              .fields['email']!.value,
-                                          _formKey.currentState!
-                                              .fields['password']!.value)
-                                      .then((value) {
-                                    if (value) {
-                                      Navigator.of(context).pushReplacement(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const AuctioneerDashboardWidget()));
-                                    } else {
-                                      setState(() {
-                                        error = _authProvider.error;
-                                      });
-                                    }
-                                  })
-                                }
-                            : null,
-                        child: const Text(
-                          'Submit',
-                          style: TextStyle(color: Colors.white),
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        getField('Email Address', 'email'),
+                        getField('Password', 'password', isPassword: true),
+                        Padding(
+                          padding: const EdgeInsets.all(25.0),
+                          child: ElevatedButton(
+                            onPressed: isValid
+                                ? () {
+                                    print(_formKey
+                                        .currentState!.fields['email']!.value);
+                                    _authProvider
+                                        .signInWithEmailAndPassword(
+                                            _formKey.currentState!
+                                                .fields['email']!.value,
+                                            _formKey.currentState!
+                                                .fields['password']!.value)
+                                        .then((value) {
+                                          print('here $value');
+                                      if (value) {
+                                        Navigator.of(context).pushReplacement(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const AuctioneerDashboardWidget()));
+                                      } else {
+                                        print('errr');
+                                        setState(() {
+                                          error = _authProvider.error;
+                                        });
+                                      }
+                                    });
+                                  }
+                                : null,
+                            child: const Text(
+                              'Submit',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    Text(error),
-                  ])))),
+                        Text(error),
+                      ])))),
     );
   }
 }

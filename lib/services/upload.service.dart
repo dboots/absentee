@@ -1,4 +1,5 @@
-import 'package:camera/camera.dart';
+import 'dart:io';
+
 import 'package:cloudinary/cloudinary.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -16,7 +17,7 @@ class UploadService {
     );
   }
 
-  Future<CloudinaryResponse> upload(XFile data, List<int> fileBytes,
+  Future<CloudinaryResponse> upload(File data, List<int> fileBytes,
       Function(int, int) progressCallback) async {
     return await cloudinary.unsignedUpload(
       file: data.path,

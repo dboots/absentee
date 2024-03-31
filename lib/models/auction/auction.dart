@@ -5,16 +5,21 @@ part 'auction.freezed.dart';
 part 'auction.g.dart';
 
 @freezed
-class AuctionModel with _$AuctionModel {
+abstract class AuctionModel with _$AuctionModel {
   const factory AuctionModel(
-      {required String description,
+      {required String title,
       required String address,
       required String documentId,
+      DateTime? startDate,
+      DateTime? endDate,
+      double? premium,
       String? state,
+      String? terms,
       String? city,
       String? zip,
+      String? byOrderOf,
       List<dynamic>? listings}) = _AuctionModel;
 
-  factory AuctionModel.fromJson(Map<String, Object?> json) =>
-      _$AuctionModelFromJson(json);
-}
+      factory AuctionModel.fromJson(Map<String, Object?> json)
+      => _$AuctionModelFromJson(json);
+} 

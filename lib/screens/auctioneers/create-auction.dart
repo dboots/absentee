@@ -21,45 +21,48 @@ class _CreateAuctionWidgetState extends State<CreateAuctionWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: const Text('Create Auction')),
-        body: Column(children: [
+        body: SingleChildScrollView(child: Column(children: [
           Padding(
               padding: const EdgeInsets.all(25.0),
               child: getListingForm(context))
-        ]));
+        ])));
   }
 
   Widget getListingForm(BuildContext context) {
     return FormBuilder(
         onChanged: () {
           setState(() {
-            isValid = _formKey.currentState!.saveAndValidate();
+            isValid = _formKey.currentState!.isValid;
           });
         },
         key: _formKey,
         child: Column(children: [
-          getField('Description', 'description'),
+          getField('Title', 'title'),
           getField('Address', 'address'),
           getField('City', 'city'),
           getField('State', 'state'),
           getDatePickerField('Start Date', 'startDate'),
+          getDatePickerField('End Date', 'endDate'),
+          getField('Terms', 'terms', isTextarea: true),
+          getField('Auction By Order Of', 'byOrderOf'),
+          getNumberField('Premium', 'premium'),
           Padding(
               padding: const EdgeInsets.all(25.0),
               child: ElevatedButton(
-                onPressed: isValid
-                    ? () {
-                        if (_formKey.currentState?.saveAndValidate() ?? false) {
-                          _auctionService
-                              .create(_formKey.currentState!.value,
-                                  _authProvider.auth.currentUser!.uid)
-                              .then((value) {
-                            Navigator.of(context).pop();
-                          });
-                        } else {
-                          debugPrint(_formKey.currentState?.value.toString());
-                          debugPrint('validation failed');
-                        }
-                      }
-                    : null,
+                onPressed: () {
+                  if (_formKey.currentState?.saveAndValidate() ?? false) {
+                    print('creating');
+                    print(_formKey.currentState!.value);
+                    _auctionService
+                        .create(_formKey.currentState!.value,
+                            _authProvider.auth.currentUser!.uid)
+                        .then((value) {
+                      Navigator.of(context).pop();
+                    });
+                  } else {
+                    debugPrint('validation failed');
+                  }
+                },
                 child: const Text(
                   'Submit',
                   style: TextStyle(color: Colors.white),

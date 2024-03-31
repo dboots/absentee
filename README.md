@@ -1,3 +1,3 @@
 # absentee.bid
 # generate model using freezed package
-`flutter pub run build_runner build`
+`dart run build_runner build --delete-conflicting-outputs`

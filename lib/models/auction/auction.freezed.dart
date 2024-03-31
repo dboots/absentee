@@ -20,12 +20,17 @@ AuctionModel _$AuctionModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AuctionModel {
-  String get description => throw _privateConstructorUsedError;
+  String get title => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
   String get documentId => throw _privateConstructorUsedError;
+  DateTime? get startDate => throw _privateConstructorUsedError;
+  DateTime? get endDate => throw _privateConstructorUsedError;
+  double? get premium => throw _privateConstructorUsedError;
   String? get state => throw _privateConstructorUsedError;
+  String? get terms => throw _privateConstructorUsedError;
   String? get city => throw _privateConstructorUsedError;
   String? get zip => throw _privateConstructorUsedError;
+  String? get byOrderOf => throw _privateConstructorUsedError;
   List<dynamic>? get listings => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,12 +46,17 @@ abstract class $AuctionModelCopyWith<$Res> {
       _$AuctionModelCopyWithImpl<$Res, AuctionModel>;
   @useResult
   $Res call(
-      {String description,
+      {String title,
       String address,
       String documentId,
+      DateTime? startDate,
+      DateTime? endDate,
+      double? premium,
       String? state,
+      String? terms,
       String? city,
       String? zip,
+      String? byOrderOf,
       List<dynamic>? listings});
 }
 
@@ -63,18 +73,23 @@ class _$AuctionModelCopyWithImpl<$Res, $Val extends AuctionModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? description = null,
+    Object? title = null,
     Object? address = null,
     Object? documentId = null,
+    Object? startDate = freezed,
+    Object? endDate = freezed,
+    Object? premium = freezed,
     Object? state = freezed,
+    Object? terms = freezed,
     Object? city = freezed,
     Object? zip = freezed,
+    Object? byOrderOf = freezed,
     Object? listings = freezed,
   }) {
     return _then(_value.copyWith(
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
               as String,
       address: null == address
           ? _value.address
@@ -84,9 +99,25 @@ class _$AuctionModelCopyWithImpl<$Res, $Val extends AuctionModel>
           ? _value.documentId
           : documentId // ignore: cast_nullable_to_non_nullable
               as String,
+      startDate: freezed == startDate
+          ? _value.startDate
+          : startDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      endDate: freezed == endDate
+          ? _value.endDate
+          : endDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      premium: freezed == premium
+          ? _value.premium
+          : premium // ignore: cast_nullable_to_non_nullable
+              as double?,
       state: freezed == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
+              as String?,
+      terms: freezed == terms
+          ? _value.terms
+          : terms // ignore: cast_nullable_to_non_nullable
               as String?,
       city: freezed == city
           ? _value.city
@@ -95,6 +126,10 @@ class _$AuctionModelCopyWithImpl<$Res, $Val extends AuctionModel>
       zip: freezed == zip
           ? _value.zip
           : zip // ignore: cast_nullable_to_non_nullable
+              as String?,
+      byOrderOf: freezed == byOrderOf
+          ? _value.byOrderOf
+          : byOrderOf // ignore: cast_nullable_to_non_nullable
               as String?,
       listings: freezed == listings
           ? _value.listings
@@ -105,46 +140,56 @@ class _$AuctionModelCopyWithImpl<$Res, $Val extends AuctionModel>
 }
 
 /// @nodoc
-abstract class _$$_AuctionModelCopyWith<$Res>
+abstract class _$$AuctionModelImplCopyWith<$Res>
     implements $AuctionModelCopyWith<$Res> {
-  factory _$$_AuctionModelCopyWith(
-          _$_AuctionModel value, $Res Function(_$_AuctionModel) then) =
-      __$$_AuctionModelCopyWithImpl<$Res>;
+  factory _$$AuctionModelImplCopyWith(
+          _$AuctionModelImpl value, $Res Function(_$AuctionModelImpl) then) =
+      __$$AuctionModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {String description,
+      {String title,
       String address,
       String documentId,
+      DateTime? startDate,
+      DateTime? endDate,
+      double? premium,
       String? state,
+      String? terms,
       String? city,
       String? zip,
+      String? byOrderOf,
       List<dynamic>? listings});
 }
 
 /// @nodoc
-class __$$_AuctionModelCopyWithImpl<$Res>
-    extends _$AuctionModelCopyWithImpl<$Res, _$_AuctionModel>
-    implements _$$_AuctionModelCopyWith<$Res> {
-  __$$_AuctionModelCopyWithImpl(
-      _$_AuctionModel _value, $Res Function(_$_AuctionModel) _then)
+class __$$AuctionModelImplCopyWithImpl<$Res>
+    extends _$AuctionModelCopyWithImpl<$Res, _$AuctionModelImpl>
+    implements _$$AuctionModelImplCopyWith<$Res> {
+  __$$AuctionModelImplCopyWithImpl(
+      _$AuctionModelImpl _value, $Res Function(_$AuctionModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? description = null,
+    Object? title = null,
     Object? address = null,
     Object? documentId = null,
+    Object? startDate = freezed,
+    Object? endDate = freezed,
+    Object? premium = freezed,
     Object? state = freezed,
+    Object? terms = freezed,
     Object? city = freezed,
     Object? zip = freezed,
+    Object? byOrderOf = freezed,
     Object? listings = freezed,
   }) {
-    return _then(_$_AuctionModel(
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+    return _then(_$AuctionModelImpl(
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
               as String,
       address: null == address
           ? _value.address
@@ -154,9 +199,25 @@ class __$$_AuctionModelCopyWithImpl<$Res>
           ? _value.documentId
           : documentId // ignore: cast_nullable_to_non_nullable
               as String,
+      startDate: freezed == startDate
+          ? _value.startDate
+          : startDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      endDate: freezed == endDate
+          ? _value.endDate
+          : endDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      premium: freezed == premium
+          ? _value.premium
+          : premium // ignore: cast_nullable_to_non_nullable
+              as double?,
       state: freezed == state
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
+              as String?,
+      terms: freezed == terms
+          ? _value.terms
+          : terms // ignore: cast_nullable_to_non_nullable
               as String?,
       city: freezed == city
           ? _value.city
@@ -165,6 +226,10 @@ class __$$_AuctionModelCopyWithImpl<$Res>
       zip: freezed == zip
           ? _value.zip
           : zip // ignore: cast_nullable_to_non_nullable
+              as String?,
+      byOrderOf: freezed == byOrderOf
+          ? _value.byOrderOf
+          : byOrderOf // ignore: cast_nullable_to_non_nullable
               as String?,
       listings: freezed == listings
           ? _value._listings
@@ -176,32 +241,47 @@ class __$$_AuctionModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_AuctionModel with DiagnosticableTreeMixin implements _AuctionModel {
-  const _$_AuctionModel(
-      {required this.description,
+class _$AuctionModelImpl with DiagnosticableTreeMixin implements _AuctionModel {
+  const _$AuctionModelImpl(
+      {required this.title,
       required this.address,
       required this.documentId,
+      this.startDate,
+      this.endDate,
+      this.premium,
       this.state,
+      this.terms,
       this.city,
       this.zip,
+      this.byOrderOf,
       final List<dynamic>? listings})
       : _listings = listings;
 
-  factory _$_AuctionModel.fromJson(Map<String, dynamic> json) =>
-      _$$_AuctionModelFromJson(json);
+  factory _$AuctionModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AuctionModelImplFromJson(json);
 
   @override
-  final String description;
+  final String title;
   @override
   final String address;
   @override
   final String documentId;
   @override
+  final DateTime? startDate;
+  @override
+  final DateTime? endDate;
+  @override
+  final double? premium;
+  @override
   final String? state;
+  @override
+  final String? terms;
   @override
   final String? city;
   @override
   final String? zip;
+  @override
+  final String? byOrderOf;
   final List<dynamic>? _listings;
   @override
   List<dynamic>? get listings {
@@ -214,7 +294,7 @@ class _$_AuctionModel with DiagnosticableTreeMixin implements _AuctionModel {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AuctionModel(description: $description, address: $address, documentId: $documentId, state: $state, city: $city, zip: $zip, listings: $listings)';
+    return 'AuctionModel(title: $title, address: $address, documentId: $documentId, startDate: $startDate, endDate: $endDate, premium: $premium, state: $state, terms: $terms, city: $city, zip: $zip, byOrderOf: $byOrderOf, listings: $listings)';
   }
 
   @override
@@ -222,45 +302,68 @@ class _$_AuctionModel with DiagnosticableTreeMixin implements _AuctionModel {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'AuctionModel'))
-      ..add(DiagnosticsProperty('description', description))
+      ..add(DiagnosticsProperty('title', title))
       ..add(DiagnosticsProperty('address', address))
       ..add(DiagnosticsProperty('documentId', documentId))
+      ..add(DiagnosticsProperty('startDate', startDate))
+      ..add(DiagnosticsProperty('endDate', endDate))
+      ..add(DiagnosticsProperty('premium', premium))
       ..add(DiagnosticsProperty('state', state))
+      ..add(DiagnosticsProperty('terms', terms))
       ..add(DiagnosticsProperty('city', city))
       ..add(DiagnosticsProperty('zip', zip))
+      ..add(DiagnosticsProperty('byOrderOf', byOrderOf))
       ..add(DiagnosticsProperty('listings', listings));
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AuctionModel &&
-            (identical(other.description, description) ||
-                other.description == description) &&
+            other is _$AuctionModelImpl &&
+            (identical(other.title, title) || other.title == title) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(other.documentId, documentId) ||
                 other.documentId == documentId) &&
+            (identical(other.startDate, startDate) ||
+                other.startDate == startDate) &&
+            (identical(other.endDate, endDate) || other.endDate == endDate) &&
+            (identical(other.premium, premium) || other.premium == premium) &&
             (identical(other.state, state) || other.state == state) &&
+            (identical(other.terms, terms) || other.terms == terms) &&
             (identical(other.city, city) || other.city == city) &&
             (identical(other.zip, zip) || other.zip == zip) &&
+            (identical(other.byOrderOf, byOrderOf) ||
+                other.byOrderOf == byOrderOf) &&
             const DeepCollectionEquality().equals(other._listings, _listings));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, description, address, documentId,
-      state, city, zip, const DeepCollectionEquality().hash(_listings));
+  int get hashCode => Object.hash(
+      runtimeType,
+      title,
+      address,
+      documentId,
+      startDate,
+      endDate,
+      premium,
+      state,
+      terms,
+      city,
+      zip,
+      byOrderOf,
+      const DeepCollectionEquality().hash(_listings));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AuctionModelCopyWith<_$_AuctionModel> get copyWith =>
-      __$$_AuctionModelCopyWithImpl<_$_AuctionModel>(this, _$identity);
+  _$$AuctionModelImplCopyWith<_$AuctionModelImpl> get copyWith =>
+      __$$AuctionModelImplCopyWithImpl<_$AuctionModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AuctionModelToJson(
+    return _$$AuctionModelImplToJson(
       this,
     );
   }
@@ -268,33 +371,48 @@ class _$_AuctionModel with DiagnosticableTreeMixin implements _AuctionModel {
 
 abstract class _AuctionModel implements AuctionModel {
   const factory _AuctionModel(
-      {required final String description,
+      {required final String title,
       required final String address,
       required final String documentId,
+      final DateTime? startDate,
+      final DateTime? endDate,
+      final double? premium,
       final String? state,
+      final String? terms,
       final String? city,
       final String? zip,
-      final List<dynamic>? listings}) = _$_AuctionModel;
+      final String? byOrderOf,
+      final List<dynamic>? listings}) = _$AuctionModelImpl;
 
   factory _AuctionModel.fromJson(Map<String, dynamic> json) =
-      _$_AuctionModel.fromJson;
+      _$AuctionModelImpl.fromJson;
 
   @override
-  String get description;
+  String get title;
   @override
   String get address;
   @override
   String get documentId;
   @override
+  DateTime? get startDate;
+  @override
+  DateTime? get endDate;
+  @override
+  double? get premium;
+  @override
   String? get state;
+  @override
+  String? get terms;
   @override
   String? get city;
   @override
   String? get zip;
   @override
+  String? get byOrderOf;
+  @override
   List<dynamic>? get listings;
   @override
   @JsonKey(ignore: true)
-  _$$_AuctionModelCopyWith<_$_AuctionModel> get copyWith =>
+  _$$AuctionModelImplCopyWith<_$AuctionModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

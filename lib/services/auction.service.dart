@@ -11,14 +11,29 @@ class AuctionService {
     return db.collection(collection).add({...auction, 'userId': uid});
   }
 
-  Stream<List<AuctionModel>> read(user) {
+  Stream<List<AuctionModel?>> read(user) {
+    print('user $user');
     return db
         .collection(collection)
         .where('userId', isEqualTo: user)
         .snapshots()
         .map((snapshot) {
       return snapshot.docs.map((doc) {
-        return AuctionModel.fromJson({...doc.data(), 'documentId': doc.id});
+        try {
+          final startDate =
+              (doc.get('startDate') as Timestamp).toDate().toString();
+          final endDate = (doc.get('endDate') as Timestamp).toDate().toString();
+          final data = {
+            ...doc.data(),
+            'startDate': startDate,
+            'endDate': endDate,
+            'documentId': doc.id,
+            'listings': [],
+          };
+          return AuctionModel.fromJson(data);
+        } catch (e) {
+          print(e);
+        }
       }).toList();
     });
   }
@@ -31,10 +46,18 @@ class AuctionService {
           .where('auctionId', isEqualTo: ref)
           .get()
           .then((listings) {
+        final startDate =
+            (auction.get('startDate') as Timestamp).toDate().toString();
+        final endDate =
+            (auction.get('endDate') as Timestamp).toDate().toString();
+        
         return AuctionModel.fromJson({
           ...auction.data() as Map<String, dynamic>,
+          'startDate': startDate,
+          'endDate': endDate,
           'documentId': auction.id,
-          'listings': listings.docs.map((l) => ListingModel.fromJson(l.data())).toList()
+          'listings':
+              listings.docs.map((l) => ListingModel.fromJson(l.data())).toList()
         });
       });
     });
