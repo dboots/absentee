@@ -12,7 +12,7 @@ part of 'listing.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 ListingModel _$ListingModelFromJson(Map<String, dynamic> json) {
   return _ListingModel.fromJson(json);
@@ -30,10 +30,14 @@ mixin _$ListingModel {
   set lotNumber(String? value) => throw _privateConstructorUsedError;
   String? get location => throw _privateConstructorUsedError;
   set location(String? value) => throw _privateConstructorUsedError;
+  @IntConverter()
   int? get quantity => throw _privateConstructorUsedError;
+  @IntConverter()
   set quantity(int? value) => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   set description(String? value) => throw _privateConstructorUsedError;
+  String? get category => throw _privateConstructorUsedError;
+  set category(String? value) => throw _privateConstructorUsedError;
   String? get locked => throw _privateConstructorUsedError;
   set locked(String? value) => throw _privateConstructorUsedError;
   String? get measurements => throw _privateConstructorUsedError;
@@ -45,23 +49,27 @@ mixin _$ListingModel {
   UserProfileModel? get lockedProfile => throw _privateConstructorUsedError;
   set lockedProfile(UserProfileModel? value) =>
       throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   DocumentReference<Object?>? get auctionRef =>
       throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   set auctionRef(DocumentReference<Object?>? value) =>
       throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   String? get auctionId => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   set auctionId(String? value) => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   String? get sellerId => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   set sellerId(String? value) => throw _privateConstructorUsedError;
 
+  /// Serializes this ListingModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ListingModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ListingModelCopyWith<ListingModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -78,16 +86,18 @@ abstract class $ListingModelCopyWith<$Res> {
       double? startPrice,
       String? lotNumber,
       String? location,
-      int? quantity,
+      @IntConverter() int? quantity,
       String? description,
+      String? category,
       String? locked,
       String? measurements,
       List<String>? images,
       SellerModel? seller,
       UserProfileModel? lockedProfile,
-      @JsonKey(ignore: true) DocumentReference<Object?>? auctionRef,
-      @JsonKey(ignore: true) String? auctionId,
-      @JsonKey(ignore: true) String? sellerId});
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      DocumentReference<Object?>? auctionRef,
+      @JsonKey(includeFromJson: false, includeToJson: false) String? auctionId,
+      @JsonKey(includeFromJson: false, includeToJson: false) String? sellerId});
 
   $SellerModelCopyWith<$Res>? get seller;
   $UserProfileModelCopyWith<$Res>? get lockedProfile;
@@ -103,6 +113,8 @@ class _$ListingModelCopyWithImpl<$Res, $Val extends ListingModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ListingModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -113,6 +125,7 @@ class _$ListingModelCopyWithImpl<$Res, $Val extends ListingModel>
     Object? location = freezed,
     Object? quantity = freezed,
     Object? description = freezed,
+    Object? category = freezed,
     Object? locked = freezed,
     Object? measurements = freezed,
     Object? images = freezed,
@@ -151,6 +164,10 @@ class _$ListingModelCopyWithImpl<$Res, $Val extends ListingModel>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String?,
       locked: freezed == locked
           ? _value.locked
           : locked // ignore: cast_nullable_to_non_nullable
@@ -186,6 +203,8 @@ class _$ListingModelCopyWithImpl<$Res, $Val extends ListingModel>
     ) as $Val);
   }
 
+  /// Create a copy of ListingModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $SellerModelCopyWith<$Res>? get seller {
@@ -198,6 +217,8 @@ class _$ListingModelCopyWithImpl<$Res, $Val extends ListingModel>
     });
   }
 
+  /// Create a copy of ListingModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $UserProfileModelCopyWith<$Res>? get lockedProfile {
@@ -225,16 +246,18 @@ abstract class _$$ListingModelImplCopyWith<$Res>
       double? startPrice,
       String? lotNumber,
       String? location,
-      int? quantity,
+      @IntConverter() int? quantity,
       String? description,
+      String? category,
       String? locked,
       String? measurements,
       List<String>? images,
       SellerModel? seller,
       UserProfileModel? lockedProfile,
-      @JsonKey(ignore: true) DocumentReference<Object?>? auctionRef,
-      @JsonKey(ignore: true) String? auctionId,
-      @JsonKey(ignore: true) String? sellerId});
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      DocumentReference<Object?>? auctionRef,
+      @JsonKey(includeFromJson: false, includeToJson: false) String? auctionId,
+      @JsonKey(includeFromJson: false, includeToJson: false) String? sellerId});
 
   @override
   $SellerModelCopyWith<$Res>? get seller;
@@ -250,6 +273,8 @@ class __$$ListingModelImplCopyWithImpl<$Res>
       _$ListingModelImpl _value, $Res Function(_$ListingModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ListingModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -260,6 +285,7 @@ class __$$ListingModelImplCopyWithImpl<$Res>
     Object? location = freezed,
     Object? quantity = freezed,
     Object? description = freezed,
+    Object? category = freezed,
     Object? locked = freezed,
     Object? measurements = freezed,
     Object? images = freezed,
@@ -297,6 +323,10 @@ class __$$ListingModelImplCopyWithImpl<$Res>
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
               as String?,
       locked: freezed == locked
           ? _value.locked
@@ -343,16 +373,17 @@ class _$ListingModelImpl with DiagnosticableTreeMixin implements _ListingModel {
       this.startPrice,
       this.lotNumber,
       this.location,
-      this.quantity,
+      @IntConverter() this.quantity,
       this.description,
+      this.category,
       this.locked,
       this.measurements,
       this.images,
       this.seller,
       this.lockedProfile,
-      @JsonKey(ignore: true) this.auctionRef,
-      @JsonKey(ignore: true) this.auctionId,
-      @JsonKey(ignore: true) this.sellerId});
+      @JsonKey(includeFromJson: false, includeToJson: false) this.auctionRef,
+      @JsonKey(includeFromJson: false, includeToJson: false) this.auctionId,
+      @JsonKey(includeFromJson: false, includeToJson: false) this.sellerId});
 
   factory _$ListingModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ListingModelImplFromJson(json);
@@ -369,9 +400,12 @@ class _$ListingModelImpl with DiagnosticableTreeMixin implements _ListingModel {
   @override
   String? location;
   @override
+  @IntConverter()
   int? quantity;
   @override
   String? description;
+  @override
+  String? category;
   @override
   String? locked;
   @override
@@ -383,18 +417,18 @@ class _$ListingModelImpl with DiagnosticableTreeMixin implements _ListingModel {
   @override
   UserProfileModel? lockedProfile;
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   DocumentReference<Object?>? auctionRef;
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   String? auctionId;
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   String? sellerId;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ListingModel(uid: $uid, title: $title, startPrice: $startPrice, lotNumber: $lotNumber, location: $location, quantity: $quantity, description: $description, locked: $locked, measurements: $measurements, images: $images, seller: $seller, lockedProfile: $lockedProfile, auctionRef: $auctionRef, auctionId: $auctionId, sellerId: $sellerId)';
+    return 'ListingModel(uid: $uid, title: $title, startPrice: $startPrice, lotNumber: $lotNumber, location: $location, quantity: $quantity, description: $description, category: $category, locked: $locked, measurements: $measurements, images: $images, seller: $seller, lockedProfile: $lockedProfile, auctionRef: $auctionRef, auctionId: $auctionId, sellerId: $sellerId)';
   }
 
   @override
@@ -409,6 +443,7 @@ class _$ListingModelImpl with DiagnosticableTreeMixin implements _ListingModel {
       ..add(DiagnosticsProperty('location', location))
       ..add(DiagnosticsProperty('quantity', quantity))
       ..add(DiagnosticsProperty('description', description))
+      ..add(DiagnosticsProperty('category', category))
       ..add(DiagnosticsProperty('locked', locked))
       ..add(DiagnosticsProperty('measurements', measurements))
       ..add(DiagnosticsProperty('images', images))
@@ -419,7 +454,9 @@ class _$ListingModelImpl with DiagnosticableTreeMixin implements _ListingModel {
       ..add(DiagnosticsProperty('sellerId', sellerId));
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ListingModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ListingModelImplCopyWith<_$ListingModelImpl> get copyWith =>
@@ -440,16 +477,19 @@ abstract class _ListingModel implements ListingModel {
       double? startPrice,
       String? lotNumber,
       String? location,
-      int? quantity,
+      @IntConverter() int? quantity,
       String? description,
+      String? category,
       String? locked,
       String? measurements,
       List<String>? images,
       SellerModel? seller,
       UserProfileModel? lockedProfile,
-      @JsonKey(ignore: true) DocumentReference<Object?>? auctionRef,
-      @JsonKey(ignore: true) String? auctionId,
-      @JsonKey(ignore: true) String? sellerId}) = _$ListingModelImpl;
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      DocumentReference<Object?>? auctionRef,
+      @JsonKey(includeFromJson: false, includeToJson: false) String? auctionId,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      String? sellerId}) = _$ListingModelImpl;
 
   factory _ListingModel.fromJson(Map<String, dynamic> json) =
       _$ListingModelImpl.fromJson;
@@ -470,11 +510,16 @@ abstract class _ListingModel implements ListingModel {
   String? get location;
   set location(String? value);
   @override
+  @IntConverter()
   int? get quantity;
+  @IntConverter()
   set quantity(int? value);
   @override
   String? get description;
   set description(String? value);
+  @override
+  String? get category;
+  set category(String? value);
   @override
   String? get locked;
   set locked(String? value);
@@ -491,22 +536,25 @@ abstract class _ListingModel implements ListingModel {
   UserProfileModel? get lockedProfile;
   set lockedProfile(UserProfileModel? value);
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   DocumentReference<Object?>? get auctionRef;
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   set auctionRef(DocumentReference<Object?>? value);
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   String? get auctionId;
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   set auctionId(String? value);
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   String? get sellerId;
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   set sellerId(String? value);
+
+  /// Create a copy of ListingModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ListingModelImplCopyWith<_$ListingModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

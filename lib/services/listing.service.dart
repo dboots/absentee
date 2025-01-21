@@ -19,13 +19,18 @@ class ListingService {
     final auctionRef = db.collection('auctions').doc(auctionId);
     final request = CompleteText(
         prompt: 'Can you create a paragraph about ${model.description}',
-        model: TextDavinci3Model(),
+        model: Gpt3TurboInstruct(),
         maxTokens: 200);
     if (false) {
       final response = await openAI.onCompletion(request: request);
       print(response!.choices.last.text);
       model.description = response.choices.last.text;
     }
+
+    // cast model.quantity to int?
+    model.quantity = int.tryParse(model.quantity.toString()) ?? 0;
+    print(model.toJson());
+    
     return db
         .collection(collection)
         .add({...model.toJson(), 'uid': '', 'auctionRef': auctionRef}).then(

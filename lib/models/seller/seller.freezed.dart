@@ -12,7 +12,7 @@ part of 'seller.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 SellerModel _$SellerModelFromJson(Map<String, dynamic> json) {
   return _SellerModel.fromJson(json);
@@ -25,8 +25,12 @@ mixin _$SellerModel {
   String get company => throw _privateConstructorUsedError;
   set company(String value) => throw _privateConstructorUsedError;
 
+  /// Serializes this SellerModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SellerModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SellerModelCopyWith<SellerModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +54,8 @@ class _$SellerModelCopyWithImpl<$Res, $Val extends SellerModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SellerModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -88,6 +94,8 @@ class __$$SellerModelImplCopyWithImpl<$Res>
       _$SellerModelImpl _value, $Res Function(_$SellerModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SellerModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -126,7 +134,9 @@ class _$SellerModelImpl implements _SellerModel {
     return 'SellerModel(uid: $uid, company: $company)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SellerModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SellerModelImplCopyWith<_$SellerModelImpl> get copyWith =>
@@ -153,8 +163,11 @@ abstract class _SellerModel implements SellerModel {
   @override
   String get company;
   set company(String value);
+
+  /// Create a copy of SellerModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SellerModelImplCopyWith<_$SellerModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

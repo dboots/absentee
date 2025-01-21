@@ -12,7 +12,7 @@ part of 'auction.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 AuctionModel _$AuctionModelFromJson(Map<String, dynamic> json) {
   return _AuctionModel.fromJson(json);
@@ -33,8 +33,12 @@ mixin _$AuctionModel {
   String? get byOrderOf => throw _privateConstructorUsedError;
   List<dynamic>? get listings => throw _privateConstructorUsedError;
 
+  /// Serializes this AuctionModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of AuctionModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $AuctionModelCopyWith<AuctionModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -70,6 +74,8 @@ class _$AuctionModelCopyWithImpl<$Res, $Val extends AuctionModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of AuctionModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -170,6 +176,8 @@ class __$$AuctionModelImplCopyWithImpl<$Res>
       _$AuctionModelImpl _value, $Res Function(_$AuctionModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of AuctionModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -338,7 +346,7 @@ class _$AuctionModelImpl with DiagnosticableTreeMixin implements _AuctionModel {
             const DeepCollectionEquality().equals(other._listings, _listings));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -355,7 +363,9 @@ class _$AuctionModelImpl with DiagnosticableTreeMixin implements _AuctionModel {
       byOrderOf,
       const DeepCollectionEquality().hash(_listings));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of AuctionModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$AuctionModelImplCopyWith<_$AuctionModelImpl> get copyWith =>
@@ -411,8 +421,11 @@ abstract class _AuctionModel implements AuctionModel {
   String? get byOrderOf;
   @override
   List<dynamic>? get listings;
+
+  /// Create a copy of AuctionModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$AuctionModelImplCopyWith<_$AuctionModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
