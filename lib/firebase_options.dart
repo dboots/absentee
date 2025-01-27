@@ -27,10 +27,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.macOS:
         return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -49,8 +46,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '974477026339',
     projectId: 'absentee-a1e77',
     authDomain: 'absentee-a1e77.firebaseapp.com',
-    storageBucket: 'absentee-a1e77.appspot.com',
-    databaseURL: 'https://absentee.firebaseio.com',
+    storageBucket: 'absentee-a1e77.firebasestorage.app',
     measurementId: 'G-E6S0B5DR3J',
   );
 
@@ -59,7 +55,7 @@ class DefaultFirebaseOptions {
     appId: '1:974477026339:android:13f92bd7c9ee4a582dbd96',
     messagingSenderId: '974477026339',
     projectId: 'absentee-a1e77',
-    storageBucket: 'absentee-a1e77.appspot.com',
+    storageBucket: 'absentee-a1e77.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -67,7 +63,7 @@ class DefaultFirebaseOptions {
     appId: '1:974477026339:ios:917faf314050b0e12dbd96',
     messagingSenderId: '974477026339',
     projectId: 'absentee-a1e77',
-    storageBucket: 'absentee-a1e77.appspot.com',
+    storageBucket: 'absentee-a1e77.firebasestorage.app',
     iosClientId: '974477026339-e836376ec6mjknuck8a4hr72krpg3nvs.apps.googleusercontent.com',
     iosBundleId: 'bid.absentee',
   );
@@ -77,8 +73,19 @@ class DefaultFirebaseOptions {
     appId: '1:974477026339:ios:917faf314050b0e12dbd96',
     messagingSenderId: '974477026339',
     projectId: 'absentee-a1e77',
-    storageBucket: 'absentee-a1e77.appspot.com',
+    storageBucket: 'absentee-a1e77.firebasestorage.app',
     iosClientId: '974477026339-e836376ec6mjknuck8a4hr72krpg3nvs.apps.googleusercontent.com',
     iosBundleId: 'bid.absentee',
   );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyBD71jQsM2gHKWkqSmZGribxZQJWmHAlS4',
+    appId: '1:974477026339:web:7a38fab91dc1a2752dbd96',
+    messagingSenderId: '974477026339',
+    projectId: 'absentee-a1e77',
+    authDomain: 'absentee-a1e77.firebaseapp.com',
+    storageBucket: 'absentee-a1e77.firebasestorage.app',
+    measurementId: 'G-FTGHLL2F51',
+  );
+
 }

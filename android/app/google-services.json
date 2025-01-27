@@ -2,7 +2,7 @@
   "project_info": {
     "project_number": "974477026339",
     "project_id": "absentee-a1e77",
-    "storage_bucket": "absentee-a1e77.appspot.com"
+    "storage_bucket": "absentee-a1e77.firebasestorage.app"
   },
   "client": [
     {
@@ -14,7 +14,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "974477026339-u6esavmjv96aro45mbjqm4mq2rr1s40g.apps.googleusercontent.com",
+          "client_id": "974477026339-23eqshtcs95i102rposnnjfdl1sijqg0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,7 +27,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "974477026339-u6esavmjv96aro45mbjqm4mq2rr1s40g.apps.googleusercontent.com",
+              "client_id": "974477026339-23eqshtcs95i102rposnnjfdl1sijqg0.apps.googleusercontent.com",
               "client_type": 3
             },
             {
@@ -50,7 +50,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "974477026339-u6esavmjv96aro45mbjqm4mq2rr1s40g.apps.googleusercontent.com",
+          "client_id": "974477026339-23eqshtcs95i102rposnnjfdl1sijqg0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -63,7 +63,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "974477026339-u6esavmjv96aro45mbjqm4mq2rr1s40g.apps.googleusercontent.com",
+              "client_id": "974477026339-23eqshtcs95i102rposnnjfdl1sijqg0.apps.googleusercontent.com",
               "client_type": 3
             },
             {
@@ -86,7 +86,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "974477026339-u6esavmjv96aro45mbjqm4mq2rr1s40g.apps.googleusercontent.com",
+          "client_id": "974477026339-23eqshtcs95i102rposnnjfdl1sijqg0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -99,7 +99,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "974477026339-u6esavmjv96aro45mbjqm4mq2rr1s40g.apps.googleusercontent.com",
+              "client_id": "974477026339-23eqshtcs95i102rposnnjfdl1sijqg0.apps.googleusercontent.com",
               "client_type": 3
             },
             {

@@ -1,9 +1,10 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:get_thumbnail_video/index.dart';
+import 'package:get_thumbnail_video/video_thumbnail.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
 
 class AbsenteeVideo extends StatefulWidget {
   const AbsenteeVideo({super.key, required this.file});
@@ -48,7 +49,7 @@ class _AbsenteeVideoState extends State<AbsenteeVideo> {
       // you can use this new file path for making the thumbnail without error
       mediaPath = tempFile.path;
     }
-    return VideoThumbnail.thumbnailData(
+    return await VideoThumbnail.thumbnailData(
       video: mediaPath,
       imageFormat: ImageFormat.JPEG,
       maxWidth: 128,
