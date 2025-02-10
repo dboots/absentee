@@ -50,7 +50,7 @@ class AuctionService {
             (auction.get('startDate') as Timestamp).toDate().toString();
         final endDate =
             (auction.get('endDate') as Timestamp).toDate().toString();
-        
+
         return AuctionModel.fromJson({
           ...auction.data() as Map<String, dynamic>,
           'startDate': startDate,
@@ -61,5 +61,32 @@ class AuctionService {
         });
       });
     });
+  }
+
+  Future<AuctionModel> update(
+      Map<String, dynamic> auctionData, String id) async {
+    final docRef = db.collection(collection).doc(id);
+    print(auctionData['startDate']);
+
+    // Convert dates to Timestamps for Firestore
+    // final startDate = DateTime.parse(auctionData['startDate']);
+    // final endDate = DateTime.parse(auctionData['endDate']);
+    final premium = double.parse(auctionData['premium']);
+
+    final updateData = {
+      ...auctionData,
+      'premium': premium,
+      'updatedAt': FieldValue.serverTimestamp(),
+    };
+
+    // Remove any fields that shouldn't be in the Firestore document
+    updateData.remove('documentId');
+    updateData.remove('listings');
+
+    // Update the document
+    await docRef.update(updateData);
+
+    // Fetch and return the updated auction
+    return single(id);
   }
 }

@@ -45,6 +45,7 @@ class DefaultFirebaseOptions {
     appId: '1:974477026339:web:b9729f24696e2e8e2dbd96',
     messagingSenderId: '974477026339',
     projectId: 'absentee-a1e77',
+    databaseURL: 'https://absentee-a1e77.firebaseio.com',
     authDomain: 'absentee-a1e77.firebaseapp.com',
     storageBucket: 'absentee-a1e77.firebasestorage.app',
     measurementId: 'G-E6S0B5DR3J',

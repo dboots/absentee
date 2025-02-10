@@ -18,6 +18,7 @@ abstract class AuctionModel with _$AuctionModel {
       String? city,
       String? zip,
       String? byOrderOf,
+      String? userId,
       List<dynamic>? listings}) = _AuctionModel;
 
       factory AuctionModel.fromJson(Map<String, Object?> json)

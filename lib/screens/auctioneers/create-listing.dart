@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:absentee/providers/online.provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +26,6 @@ class CreateListingWidget extends StatefulWidget {
 class _CreateListingWidget extends State<CreateListingWidget> {
   final _formKey = GlobalKey<FormBuilderState>();
   final _listingService = ListingService();
-  final bool _isOffline = false;
 
   List<File> _images = [];
   List<File> _imagesQueue = [];
@@ -232,8 +232,10 @@ class _CreateListingWidget extends State<CreateListingWidget> {
       model = ListingModel.fromJson(
           {..._formKey.currentState!.value, 'images': model.images});
 
-      if (_isOffline) {
-        await _handleOfflineSubmit();
+      final onlineStatus = Provider.of<OnlineStatusProvider>(context, listen: false);
+      print(onlineStatus.isOnline);
+      if (!onlineStatus.isOnline) {
+        _handleOfflineSubmit();
       } else {
         await _handleOnlineSubmit();
       }
@@ -254,14 +256,16 @@ class _CreateListingWidget extends State<CreateListingWidget> {
     }
   }
 
-  Future<void> _handleOfflineSubmit() async {
+  void _handleOfflineSubmit() async {
     if (widget.listingId != null) {
-      await _listingService.update(model, widget.listingId!);
+      _listingService.update(model, widget.listingId!);
       _processImagesOffline(widget.listingId!);
     } else {
-      final String newListingId =
-          await _listingService.create(model, widget.auctionId);
-      _processImagesOffline(newListingId);
+          _listingService.create(model, widget.auctionId).then((value) => {
+            print('listing created, processing offline images'),
+            _processImagesOffline(value)
+          }
+      );
     }
   }
 
@@ -290,6 +294,7 @@ class _CreateListingWidget extends State<CreateListingWidget> {
   }
 
   void _processImagesOffline(String listingId) {
+    print('processing offline images');
     for (var image in _images) {
       _listingService.queueListingUpload(image, uid, listingId);
     }
@@ -363,7 +368,7 @@ class _CreateListingWidget extends State<CreateListingWidget> {
             ),
           ),
           bottomNavigationBar: Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
             decoration: BoxDecoration(
               color: Theme.of(context).scaffoldBackgroundColor,
               boxShadow: [

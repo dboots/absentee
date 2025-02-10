@@ -1,3 +1,4 @@
+import 'package:absentee/providers/online.provider.dart';
 import 'package:absentee/widgets/listing.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -7,6 +8,7 @@ import 'package:absentee/screens/auction.dart';
 import 'package:absentee/screens/listing.dart';
 import 'package:absentee/screens/auctioneers/create-auction.dart';
 import 'package:absentee/services/auction.service.dart';
+import 'package:provider/provider.dart';
 
 class AuctioneerDashboardWidget extends StatefulWidget {
   const AuctioneerDashboardWidget({super.key});
@@ -214,6 +216,25 @@ class _AuctioneerDashboardWidgetState extends State<AuctioneerDashboardWidget> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         actions: [
+          Consumer<OnlineStatusProvider>(
+            builder: (context, onlineStatus, child) => IconButton(
+              icon: Icon(
+                onlineStatus.isOnline ? Icons.cloud_done : Icons.cloud_off,
+                color: onlineStatus.isOnline ? Colors.green : Colors.grey,
+              ),
+              onPressed: () {
+                onlineStatus.toggleStatus();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(onlineStatus.isOnline
+                        ? 'You are now online'
+                        : 'You are now offline'),
+                    duration: const Duration(seconds: 2),
+                  ),
+                );
+              },
+            ),
+          ),
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: _handleLogout,

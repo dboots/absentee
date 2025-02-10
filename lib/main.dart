@@ -1,8 +1,12 @@
+import 'package:absentee/providers/online.provider.dart';
 import 'package:absentee/screens/login.dart';
 import 'package:absentee/providers/auth.provider.dart';
 import 'package:absentee/screens/auctioneers/dashboard.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +15,15 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+  //FirebaseDatabase.instance.setPersistenceEnabled(true);
+
+  final presenceRef = FirebaseDatabase.instance.ref("disconnectmessage");
+// Write a string when this client loses connection
+  presenceRef.onDisconnect().set("I disconnected!");
+
   runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (_) => OnlineStatusProvider()),
     ChangeNotifierProvider<AuthProvider>(
       create: (context) => AuthProvider(),
     ),

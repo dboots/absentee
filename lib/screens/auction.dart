@@ -1,6 +1,7 @@
+import 'package:absentee/providers/auth.provider.dart';
+import 'package:absentee/screens/auctioneers/create-auction.dart';
 import 'package:absentee/widgets/listing.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:intl/intl.dart';
 import 'package:absentee/models/auction/auction.dart';
 import 'package:absentee/screens/auctioneers/create-listing.dart';
@@ -18,8 +19,10 @@ class AuctionWidget extends StatefulWidget {
 class _AuctionWidgetState extends State<AuctionWidget> {
   final ListingService _listingService = ListingService();
   final AuctionService _auctionService = AuctionService();
+  final AuthProvider _authProvider = AuthProvider();
   AuctionModel? _auction;
   bool _isLoading = true;
+  bool _isOwner = false;
 
   @override
   void initState() {
@@ -34,6 +37,8 @@ class _AuctionWidgetState extends State<AuctionWidget> {
         setState(() {
           _auction = auction;
           _isLoading = false;
+          // Check if current user is the auction owner
+          _isOwner = _authProvider.auth.currentUser?.uid == auction.userId;
         });
       }
     } catch (e) {
@@ -49,6 +54,37 @@ class _AuctionWidgetState extends State<AuctionWidget> {
         );
       }
     }
+  }
+
+  void _handleEdit() {
+    Navigator.of(context)
+        .push(
+          MaterialPageRoute(
+            builder: (context) => CreateAuctionWidget(
+              auctionId: widget.auctionId,
+              initialAuction: _auction,
+            ),
+          ),
+        )
+        .then((_) => _initAuction()); // Refresh after editing
+  }
+
+  AppBar _buildAppBar() {
+    return AppBar(
+      elevation: 0,
+      title: Text(
+        _auction!.title,
+        style: const TextStyle(fontWeight: FontWeight.bold),
+      ),
+      actions: [
+        if (_isOwner)
+          IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: _handleEdit,
+            tooltip: 'Edit Auction',
+          ),
+      ],
+    );
   }
 
   Widget _buildHeader() {
@@ -250,13 +286,7 @@ class _AuctionWidgetState extends State<AuctionWidget> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        title: Text(
-          _auction!.title,
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
-      ),
+      appBar: _buildAppBar(),
       body: RefreshIndicator(
         onRefresh: _initAuction,
         child: SingleChildScrollView(
@@ -267,7 +297,7 @@ class _AuctionWidgetState extends State<AuctionWidget> {
                 padding: const EdgeInsets.all(16.0),
                 child: _buildHeader(),
               ),
-              _buildCatalogHeader(),
+              if (_isOwner) _buildCatalogHeader(),
               StreamBuilder(
                 stream: _listingService.streamListings(widget.auctionId),
                 builder: (context, snapshot) {

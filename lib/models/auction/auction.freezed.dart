@@ -31,6 +31,7 @@ mixin _$AuctionModel {
   String? get city => throw _privateConstructorUsedError;
   String? get zip => throw _privateConstructorUsedError;
   String? get byOrderOf => throw _privateConstructorUsedError;
+  String? get userId => throw _privateConstructorUsedError;
   List<dynamic>? get listings => throw _privateConstructorUsedError;
 
   /// Serializes this AuctionModel to a JSON map.
@@ -61,6 +62,7 @@ abstract class $AuctionModelCopyWith<$Res> {
       String? city,
       String? zip,
       String? byOrderOf,
+      String? userId,
       List<dynamic>? listings});
 }
 
@@ -90,6 +92,7 @@ class _$AuctionModelCopyWithImpl<$Res, $Val extends AuctionModel>
     Object? city = freezed,
     Object? zip = freezed,
     Object? byOrderOf = freezed,
+    Object? userId = freezed,
     Object? listings = freezed,
   }) {
     return _then(_value.copyWith(
@@ -137,6 +140,10 @@ class _$AuctionModelCopyWithImpl<$Res, $Val extends AuctionModel>
           ? _value.byOrderOf
           : byOrderOf // ignore: cast_nullable_to_non_nullable
               as String?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
       listings: freezed == listings
           ? _value.listings
           : listings // ignore: cast_nullable_to_non_nullable
@@ -165,6 +172,7 @@ abstract class _$$AuctionModelImplCopyWith<$Res>
       String? city,
       String? zip,
       String? byOrderOf,
+      String? userId,
       List<dynamic>? listings});
 }
 
@@ -192,6 +200,7 @@ class __$$AuctionModelImplCopyWithImpl<$Res>
     Object? city = freezed,
     Object? zip = freezed,
     Object? byOrderOf = freezed,
+    Object? userId = freezed,
     Object? listings = freezed,
   }) {
     return _then(_$AuctionModelImpl(
@@ -239,6 +248,10 @@ class __$$AuctionModelImplCopyWithImpl<$Res>
           ? _value.byOrderOf
           : byOrderOf // ignore: cast_nullable_to_non_nullable
               as String?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
       listings: freezed == listings
           ? _value._listings
           : listings // ignore: cast_nullable_to_non_nullable
@@ -262,6 +275,7 @@ class _$AuctionModelImpl with DiagnosticableTreeMixin implements _AuctionModel {
       this.city,
       this.zip,
       this.byOrderOf,
+      this.userId,
       final List<dynamic>? listings})
       : _listings = listings;
 
@@ -290,6 +304,8 @@ class _$AuctionModelImpl with DiagnosticableTreeMixin implements _AuctionModel {
   final String? zip;
   @override
   final String? byOrderOf;
+  @override
+  final String? userId;
   final List<dynamic>? _listings;
   @override
   List<dynamic>? get listings {
@@ -302,7 +318,7 @@ class _$AuctionModelImpl with DiagnosticableTreeMixin implements _AuctionModel {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AuctionModel(title: $title, address: $address, documentId: $documentId, startDate: $startDate, endDate: $endDate, premium: $premium, state: $state, terms: $terms, city: $city, zip: $zip, byOrderOf: $byOrderOf, listings: $listings)';
+    return 'AuctionModel(title: $title, address: $address, documentId: $documentId, startDate: $startDate, endDate: $endDate, premium: $premium, state: $state, terms: $terms, city: $city, zip: $zip, byOrderOf: $byOrderOf, userId: $userId, listings: $listings)';
   }
 
   @override
@@ -321,6 +337,7 @@ class _$AuctionModelImpl with DiagnosticableTreeMixin implements _AuctionModel {
       ..add(DiagnosticsProperty('city', city))
       ..add(DiagnosticsProperty('zip', zip))
       ..add(DiagnosticsProperty('byOrderOf', byOrderOf))
+      ..add(DiagnosticsProperty('userId', userId))
       ..add(DiagnosticsProperty('listings', listings));
   }
 
@@ -343,6 +360,7 @@ class _$AuctionModelImpl with DiagnosticableTreeMixin implements _AuctionModel {
             (identical(other.zip, zip) || other.zip == zip) &&
             (identical(other.byOrderOf, byOrderOf) ||
                 other.byOrderOf == byOrderOf) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
             const DeepCollectionEquality().equals(other._listings, _listings));
   }
 
@@ -361,6 +379,7 @@ class _$AuctionModelImpl with DiagnosticableTreeMixin implements _AuctionModel {
       city,
       zip,
       byOrderOf,
+      userId,
       const DeepCollectionEquality().hash(_listings));
 
   /// Create a copy of AuctionModel
@@ -392,6 +411,7 @@ abstract class _AuctionModel implements AuctionModel {
       final String? city,
       final String? zip,
       final String? byOrderOf,
+      final String? userId,
       final List<dynamic>? listings}) = _$AuctionModelImpl;
 
   factory _AuctionModel.fromJson(Map<String, dynamic> json) =
@@ -419,6 +439,8 @@ abstract class _AuctionModel implements AuctionModel {
   String? get zip;
   @override
   String? get byOrderOf;
+  @override
+  String? get userId;
   @override
   List<dynamic>? get listings;
 

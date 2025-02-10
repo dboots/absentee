@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:absentee/models/listing/listing.dart';
-import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -11,26 +10,12 @@ class ListingService {
   final db = FirebaseFirestore.instance;
 
   Future<String> create(ListingModel model, String auctionId) async {
-    print(apiKey);
-    final openAI = OpenAI.instance.build(
-        token: apiKey,
-        baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 5)),
-        enableLog: true);
     final auctionRef = db.collection('auctions').doc(auctionId);
-    final request = CompleteText(
-        prompt: 'Can you create a paragraph about ${model.description}',
-        model: Gpt3TurboInstruct(),
-        maxTokens: 200);
-    if (false) {
-      final response = await openAI.onCompletion(request: request);
-      print(response!.choices.last.text);
-      model.description = response.choices.last.text;
-    }
 
     // cast model.quantity to int?
     model.quantity = int.tryParse(model.quantity.toString()) ?? 0;
     print(model.toJson());
-    
+
     return db
         .collection(collection)
         .add({...model.toJson(), 'uid': '', 'auctionRef': auctionRef}).then(
@@ -68,12 +53,40 @@ class ListingService {
             }).toList());
   }
 
-  Future<void> queueListingUpload(File data, String userId, String listingId) {
-    return db.collection('upload_queue').add({
+  void queueListingUpload(File data, String userId, String listingId) {
+    print('queueing upload');
+    db.collection('upload_queue').add({
       'file': data.path,
       'userId': userId,
       'listingId': listingId,
       'timestamp': DateTime.now()
     });
   }
+
+  // Future<void> processUploadQueue() async {
+  //   final queue = await db.collection('upload_queue').get();
+  //   for (final item in queue.docs) {
+  //     // upload image using cloudinary
+  //     final bytes = await File(image.path).readAsBytes();
+  //     final response = await cloudinary.upload(image, bytes, (count, total) {});
+
+  //     final data = item.data();
+  //     final file = File(data['file'] as String);
+  //     final userId = data['userId'] as String;
+  //     final listingId = data['listingId'] as String;
+  //     final listingRef = db.collection('listings').doc(listingId);
+  //     final auctionRef = db.collection('auctions').doc(listingId);
+  //     final listing = ListingModel.fromJson({
+  //       'name': file.path.split('/').last,
+  //       'quantity': 1,
+  //       'price': 0,
+  //       'description': '',
+  //       'image': '',
+  //       'auctionRef': auctionRef
+  //     });
+  //     final ref = await db.collection('listings').add(listing.toJson());
+  //     await listingRef.update({'uid': ref.id});
+  //     await item.reference.delete();
+  //   }
+  // }
 }

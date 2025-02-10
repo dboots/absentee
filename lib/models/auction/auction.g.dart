@@ -23,6 +23,7 @@ _$AuctionModelImpl _$$AuctionModelImplFromJson(Map<String, dynamic> json) =>
       city: json['city'] as String?,
       zip: json['zip'] as String?,
       byOrderOf: json['byOrderOf'] as String?,
+      userId: json['userId'] as String?,
       listings: json['listings'] as List<dynamic>?,
     );
 
@@ -39,5 +40,6 @@ Map<String, dynamic> _$$AuctionModelImplToJson(_$AuctionModelImpl instance) =>
       'city': instance.city,
       'zip': instance.zip,
       'byOrderOf': instance.byOrderOf,
+      'userId': instance.userId,
       'listings': instance.listings,
     };
